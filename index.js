@@ -210,12 +210,7 @@ app.get("/api/getForumReply", (req, res) => {
 });
 app.use(express.static("public"));
 //--------------------Main Events-------------------------
-app.get("/api/getMainEvent", cors(), (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+app.get("/api/getMainEvent", (req, res) => {
   const sqlSelect =
     "SELECT EVENT_TITLE, EVENT_CONTENT, DATE_FORMAT(EVENT_DATE, '%Y-%m-%d') as EVENT_DATE FROM admin_events ORDER BY EVENT_ID DESC LIMIT 3";
   db.query(sqlSelect, (err, result) => {
@@ -223,11 +218,7 @@ app.get("/api/getMainEvent", cors(), (req, res) => {
       console.log(err);
     } else {
       // console.log(err);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-      );
+
       res.send(result);
     }
   });
