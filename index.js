@@ -760,7 +760,7 @@ app.get("/api/AdminList", (req, res) => {
     } else {
       // console.log(err);
       res.send(result);
-      console.log(result);
+
     }
   });
 });
