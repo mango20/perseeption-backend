@@ -861,15 +861,15 @@ app.post("/login", (req, res) => {
     }
   });
 });
-const path = require("path");
+// const path = require("path");
 const PORT = process.env.PORT || 3004;
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
-  app.get("*", (req, res) => {
-    req.sendFile(path.resolve(__dirname, "build", "index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("build"));
+//   app.get("*", (req, res) => {
+//     req.sendFile(path.resolve(__dirname, "build", "index.html"));
+//   });
+// }
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`); //localhost:3001
 });
