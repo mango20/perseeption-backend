@@ -116,7 +116,7 @@ app.get("/api/getForum", (req, res) => {
   const sqlSelect = "SELECT * FROM forum_content";
   db.query(sqlSelect, (err, result) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
     } else {
       console.log(result);
       res.send(result);
