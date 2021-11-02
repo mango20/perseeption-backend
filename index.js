@@ -8,6 +8,7 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const path = require("path");
 
 // const storage = multer.diskStorage({})
 // const multer = require({ storage: storage });
@@ -29,15 +30,15 @@ const mysql = require("mysql");
 //   database: "perseeption_db-36352871",
 // });
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: ["*"],
-//     methods: ["GET", "POST", "DELETE", "PUT"],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: ["*"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    credentials: true,
+  })
+);
 
-app.use(cors());
+// app.use(cors());
 
 // var corsOptions = {
 //   origin: true,
@@ -55,6 +56,17 @@ const db = mysql.createConnection({
   database: "heroku_ac00d9532dbe104",
 });
 
+const PORT = process.env.PORT || 3004;
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  app.get("*", (req, res) => {
+    req.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+}
+app.listen(PORT, () => {
+  console.log(`running on port ${PORT}`); //localhost:3001
+});
 // const db = mysql.createPool({
 //   connectionLimit: 1000,
 //   connectTimeout: 60 * 60 * 1000,
@@ -860,16 +872,4 @@ app.post("/login", (req, res) => {
       // res.send({ message: "User doesn't exist" });
     }
   });
-});
-// const path = require("path");
-const PORT = process.env.PORT || 3004;
-
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("build"));
-//   app.get("*", (req, res) => {
-//     req.sendFile(path.resolve(__dirname, "build", "index.html"));
-//   });
-// }
-app.listen(PORT, () => {
-  console.log(`running on port ${PORT}`); //localhost:3001
 });
