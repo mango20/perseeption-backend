@@ -31,9 +31,10 @@ const mysql = require("mysql");
 app.use(express.json());
 app.use(
   cors({
-    "Access-Control-Allow-Origin": ["*"],
+    origin: ["*"],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
+   
   })
 );
 
