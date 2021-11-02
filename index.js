@@ -31,6 +31,7 @@ const mysql = require("mysql");
 app.use(express.json());
 app.use(
   cors({
+    origin: "https://perseep-frontend.herokuapp.com",
     methods: ["GET", "POST", "DELETE", "PUT"],
     withCredentials: true,
     preflightContinue: false,
