@@ -29,13 +29,15 @@ const mysql = require("mysql");
 //   database: "perseeption_db-36352871",
 // });
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["*"],
-    methods: ["GET", "POST", "DELETE", "PUT"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["*"],
+//     methods: ["GET", "POST", "DELETE", "PUT"],
+//     credentials: true,
+//   })
+// );
+
+app.use(cors());
 
 const db = mysql.createConnection({
   host: "us-cdbr-east-04.cleardb.com",
