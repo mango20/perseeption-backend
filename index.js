@@ -28,10 +28,7 @@ const mysql = require("mysql");
 //   password: "We1*|Ber#J!<",
 //   database: "perseeption_db-36352871",
 // });
-const listP = [
-  "https://perseeption-tromagade.herokuapp.com/",
-  "https://perseep-frontend.herokuapp.com/",
-];
+
 app.use(express.json());
 app.use(
   cors({
