@@ -86,7 +86,7 @@ app.use(
     secret: "pavicOrg", //organization
     resave: false,
     saveUninitialized: false,
-    cookie: { expires: 60 * 60 * 24 },
+    cookie: { expires: 60 * 60 * 24, secure: true },
   })
 );
 
@@ -117,7 +117,7 @@ app.get("/countGenderFemale", (req, res) => {
 });
 
 const storage_AddMember = multer.diskStorage({
-  destination: path.join(__dirname, "../images/", "memberGcash"),
+  destination: path.join(__dirname, "/../../images/", "memberGcash"),
   filename: function (req, file, cb) {
     // null as first argument means no error
     cb(null, Date.now() + "-" + file.originalname);
