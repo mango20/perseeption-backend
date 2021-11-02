@@ -29,14 +29,13 @@ const mysql = require("mysql");
 //   database: "perseeption_db-36352871",
 // });
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: ["*"],
-//     methods: ["GET", "POST", "DELETE", "PUT"],
-//     credentials: true,
-//     allowedHeaders: true,
-//   })
-// );
+app.use(
+  cors({
+    "Access-Control-Allow-Origin": ["*"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    credentials: true,
+  })
+);
 
 app.use(cors());
 
@@ -72,7 +71,7 @@ app.use(
   })
 );
 
-app.options("*", cors());
+// app.options("*", cors());
 
 app.post("/insertContactUsMsg", (req, res) => {
   const contact_name = req.body.contact_name;
