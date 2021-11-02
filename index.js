@@ -40,7 +40,7 @@ app.use(express.json());
 // app.use(cors());
 
 var corsOptions = {
-  origin: "https://perseeption.com",
+  origin: true,
   optionsSuccessful: 200,
   credentials: "include",
 };
