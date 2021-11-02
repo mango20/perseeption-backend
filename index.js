@@ -39,6 +39,11 @@ app.use(express.json());
 
 app.use(cors());
 
+var corsOptions = {
+  origin: "https://perseeption.com",
+  optionsSuccessful: 200,
+};
+
 const db = mysql.createConnection({
   host: "us-cdbr-east-04.cleardb.com",
   port: 3306,
@@ -183,7 +188,7 @@ app.get("/api/getForumReply", (req, res) => {
 });
 
 //--------------------Main Events-------------------------
-app.get("/api/getMainEvent", (req, res) => {
+app.get("/api/getMainEvent", cors(corsOptions), (req, res) => {
   const sqlSelect =
     "SELECT EVENT_TITLE, EVENT_CONTENT, DATE_FORMAT(EVENT_DATE, '%Y-%m-%d') as EVENT_DATE FROM admin_events ORDER BY EVENT_ID DESC LIMIT 3";
   db.query(sqlSelect, (err, result) => {
