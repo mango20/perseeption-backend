@@ -34,7 +34,6 @@ app.use(
     origin: ["*"],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
-    preflightContinue: true,
   })
 );
 
