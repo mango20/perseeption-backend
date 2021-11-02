@@ -117,11 +117,7 @@ app.get("/countGenderFemale", (req, res) => {
 });
 
 const storage_AddMember = multer.diskStorage({
-  destination: path.join(
-    __dirname,
-    "../perseeption-backend/images/",
-    "memberGcash"
-  ),
+  destination: path.join(__dirname, "./images/", "memberGcash"),
   filename: function (req, file, cb) {
     // null as first argument means no error
     cb(null, Date.now() + "-" + file.originalname);
@@ -235,11 +231,7 @@ app.post("/uploadGCash", async (req, res) => {
 });
 
 const storage_eventImg = multer.diskStorage({
-  destination: path.join(
-    __dirname,
-    "../perseeption-backend/images/",
-    "eventImage"
-  ),
+  destination: path.join(__dirname, "./images/", "eventImage"),
   filename: function (req, file, cb) {
     // null as first argument means no error
     cb(null, Date.now() + "-" + file.originalname);
@@ -283,11 +275,7 @@ app.post("/uploadEvent", async (req, res) => {
 });
 
 const storage = multer.diskStorage({
-  destination: path.join(
-    __dirname,
-    "../perseeption-backend/images/",
-    "announcementImg"
-  ),
+  destination: path.join(__dirname, "./images/", "announcementImg"),
   filename: function (req, file, cb) {
     // null as first argument means no error
     cb(null, Date.now() + "-" + file.originalname);
