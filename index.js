@@ -31,10 +31,11 @@ const mysql = require("mysql");
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://perseep-frontend.herokuapp.com",
+    origin: "*",
     methods: ["GET", "POST", "DELETE", "PUT"],
     withCredentials: true,
-    preflightContinue: false,
+    // preflightContinue: false,
+    // optionsSuccessStatus: 204,
   })
 );
 
@@ -209,7 +210,7 @@ app.get("/api/getForumReply", (req, res) => {
 });
 app.use(express.static("public"));
 //--------------------Main Events-------------------------
-app.get("/api/getMainEvent", (req, res) => {
+app.get("/api/getMainEvent", cors(), (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
