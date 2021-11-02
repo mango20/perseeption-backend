@@ -886,6 +886,135 @@ app.post("/login", (req, res) => {
     }
   });
 });
+
+function sendEmail(email, token, USER_ID) {
+  var email = email;
+  var USER_ID = USER_ID;
+  var token = token;
+  console.log(token);
+  console.log(USER_ID);
+  var mail = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "perseeption2021@gmail.com", // Your email id
+      pass: "Perseeption2021!", // Your password
+    },
+  });
+  var mailOptions = {
+    from: "perseeption2021@gmail.com",
+    to: email,
+    subject: "Reset Password Link - Perseeption.com",
+    html:
+      '<p>You requested for reset password, kindly use this <a href="https://perseep-frontend.herokuapp.com/resetpassword/' +
+      USER_ID +
+      "/" +
+      token +
+      '">link</a> to reset your password</p>',
+  };
+  mail.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(info);
+    }
+  });
+}
+
+app.post("/resetPassword", (req, resu) => {
+  const email = req.body.ForgotEmail;
+
+  console.log(email);
+
+  const sqlSelectUser = `SELECT * FROM user WHERE MOTHER_EMAIL =? AND USER_REQUEST = "Approve"`;
+
+  db.query(sqlSelectUser, email, (err, res) => {
+    if (err) {
+      console.log(err);
+    }
+
+    if (res.length > 0) {
+      const USER_ID = res[0].USER_ID;
+      const MOTHER_EMAIL = res[0].MOTHER_EMAIL;
+      var token = jwt.sign({ USER_ID }, "pavicOrg", { expiresIn: "1s" }); //5mins
+      var sent = sendEmail(email, token, USER_ID);
+      console.log(token);
+
+      if (sent !== "0") {
+        var data = {
+          TOKEN: token,
+        };
+        console.log(data);
+        console.log(USER_ID);
+        const sqlUpdate = "UPDATE user SET ? WHERE MOTHER_EMAIL = ? ";
+        db.query(sqlUpdate, [data, MOTHER_EMAIL], (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            resu.send({
+              message:
+                "The reset password link has been sent to your email address",
+            });
+          }
+        });
+      }
+    } else {
+      resu.send({ message: "Email not found" });
+      console.log("hehehe");
+    }
+  });
+});
+
+app.get("/resetpassword/:USER_ID/:TOKEN", (req, res) => {
+  const TOKEN = req.params.TOKEN;
+  // res.send(req.params);
+  console.log("hi" + TOKEN);
+});
+
+// app.get("/resetpassword", function (req, res, next) {
+//   res.render("reset-password", {
+//     title: "Reset Password Page",
+//     token: req.params.token,
+//   });
+//   console.log(req.params.token);
+// });
+
+app.post("/resetpassword/:USER_ID/:TOKEN", (req, res) => {
+  var USER_ID = req.params.USER_ID;
+  var TOKEN = req.params.TOKEN;
+  var forgotPass = req.body.forgotPass;
+  console.log(USER_ID);
+  console.log(TOKEN);
+  console.log(forgotPass);
+
+  const sqlSelect = "SELECT * FROM user WHERE USER_ID =?";
+
+  db.query(sqlSelect, USER_ID, async (err, res) => {
+    if (err) {
+      console.log(err);
+    }
+
+    if (res.length > 0) {
+      // const pass = res[0].USER_PASSWORD;
+      var p = await bcrypt.hash(forgotPass, saltRounds);
+      var data = {
+        USER_PASSWORD: p,
+        // TOKEN: TOKEN,
+      };
+
+      const updatePass = "UPDATE user SET ? WHERE USER_ID=?";
+      db.query(updatePass, [data, USER_ID], (err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Your password has been updated successfully");
+        }
+      });
+    } else {
+      console.log("go");
+    }
+  });
+});
+
 const path = require("path");
 const PORT = process.env.PORT || 3004;
 
