@@ -14,7 +14,7 @@ const path = require("path");
 // const multer = require({ storage: storage });
 
 const mysql = require("mysql");
-const { join } = require("path");
+const path = require("path");
 // const { Redirect } = require("react-router");
 
 // const db = mysql.createConnection({
@@ -31,11 +31,6 @@ const { join } = require("path");
 //   database: "perseeption_db-36352871",
 // });
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "build")));
-
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
 
 app.use(
   cors({
