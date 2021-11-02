@@ -29,15 +29,15 @@ const mysql = require("mysql");
 //   database: "perseeption_db-36352871",
 // });
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["*"],
-    methods: ["GET", "POST", "DELETE", "PUT"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["*"],
+//     methods: ["GET", "POST", "DELETE", "PUT"],
+//     credentials: true,
+//   })
+// );
 
-// app.use(cors());
+app.use(cors());
 
 // var corsOptions = {
 //   origin: true,
@@ -69,15 +69,15 @@ const db = mysql.createConnection({
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(
-  session({
-    key: "USER_ID",
-    secret: "pavicOrg", //organization
-    resave: false,
-    saveUninitialized: false,
-    cookie: { expires: 60 * 60 * 24 },
-  })
-);
+// app.use(
+//   session({
+//     key: "USER_ID",
+//     secret: "pavicOrg", //organization
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { expires: 60 * 60 * 24 },
+//   })
+// );
 
 // app.options("*", cors());
 
