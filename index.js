@@ -29,23 +29,23 @@ const mysql = require("mysql");
 //   database: "perseeption_db-36352871",
 // });
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: ["*"],
-//     methods: ["GET", "POST", "DELETE", "PUT"],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: ["*"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    credentials: true,
+  })
+);
 
 // app.use(cors());
 
-var corsOptions = {
-  origin: true,
-  optionsSuccessful: 200,
-  credentials: "include",
-};
+// var corsOptions = {
+//   origin: true,
+//   optionsSuccessful: 200,
+//   credentials: "include",
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 const db = mysql.createConnection({
   host: "us-cdbr-east-04.cleardb.com",
@@ -191,7 +191,7 @@ app.get("/api/getForumReply", (req, res) => {
 });
 
 //--------------------Main Events-------------------------
-app.get("/api/getMainEvent", cors(corsOptions), (req, res) => {
+app.get("/api/getMainEvent", (req, res) => {
   const sqlSelect =
     "SELECT EVENT_TITLE, EVENT_CONTENT, DATE_FORMAT(EVENT_DATE, '%Y-%m-%d') as EVENT_DATE FROM admin_events ORDER BY EVENT_ID DESC LIMIT 3";
   db.query(sqlSelect, (err, result) => {
@@ -745,7 +745,7 @@ app.get("/api/AdminList", (req, res) => {
 });
 
 // VERIFY
-app.get("/login", cors(corsOptions), (req, res) => {
+app.get("/login", (req, res) => {
   if (req.session.user) {
     res.send({ loggedIn: true, user: req.session.user });
   } else {
