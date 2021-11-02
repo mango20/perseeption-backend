@@ -42,6 +42,7 @@ app.use(cors());
 var corsOptions = {
   origin: "https://perseeption.com",
   optionsSuccessful: 200,
+  credentials: "include",
 };
 
 const db = mysql.createConnection({
