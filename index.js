@@ -35,9 +35,9 @@ const listP = [
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    origin: true,
     methods: ["GET", "POST", "DELETE", "PUT"],
-    withCredentials: true,
+    credentials: true,
     // preflightContinue: false,
     // optionsSuccessStatus: 204,
   })
