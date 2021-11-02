@@ -12,7 +12,7 @@ const saltRounds = 10;
 const nodemailer = require("nodemailer");
 
 const multer = require("multer");
-
+const path = require("path");
 const mysql = require("mysql");
 // const { Redirect } = require("react-router");
 
@@ -1330,7 +1330,7 @@ app.post("/resetpassword/:USER_ID/:TOKEN", (req, res) => {
   });
 });
 
-const path = require("path");
+// const path = require("path");
 const PORT = process.env.PORT || 3004;
 
 if (process.env.NODE_ENV === "production") {
