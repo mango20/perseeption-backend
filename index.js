@@ -1229,6 +1229,7 @@ function sendEmail(email, token, USER_ID) {
       console.log(error);
     } else {
       console.log(info);
+      console.log(info);
     }
   });
 }
