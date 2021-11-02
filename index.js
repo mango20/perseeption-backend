@@ -34,11 +34,8 @@ app.use(
     origin: ["*"],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-app.use(cors());
 
 const db = mysql.createConnection({
   host: "us-cdbr-east-04.cleardb.com",
@@ -71,6 +68,19 @@ app.use(
     cookie: { expires: 60 * 60 * 24 },
   })
 );
+
+app.use(function (req, res, next) {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://perseeption-tromagade.herokuapp.com"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT ,DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 // app.options("*", cors());
 
