@@ -53,8 +53,8 @@ app.use(
   cors({
     origin: ["*"],
     methods: ["GET", "POST", "DELETE", "PUT"],
-    withCredentials: true,
-    "Access-Control-Allow-Credentials": true,
+    credentials: true,
+    allowedHeaders: true,
   })
 );
 
@@ -70,6 +70,8 @@ app.use(
     cookie: { expires: 60 * 60 * 24 },
   })
 );
+
+app.options("*", cors());
 
 app.post("/insertContactUsMsg", (req, res) => {
   const contact_name = req.body.contact_name;
