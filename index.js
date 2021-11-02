@@ -37,13 +37,15 @@ app.use(express.json());
 //   })
 // );
 
-app.use(cors());
+// app.use(cors());
 
 var corsOptions = {
   origin: "https://perseeption.com",
   optionsSuccessful: 200,
   credentials: "include",
 };
+
+app.use(cors(corsOptions));
 
 const db = mysql.createConnection({
   host: "us-cdbr-east-04.cleardb.com",
