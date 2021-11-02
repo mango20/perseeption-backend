@@ -119,7 +119,7 @@ app.get("/countGenderFemale", (req, res) => {
 const storage_AddMember = multer.diskStorage({
   destination: path.join(
     __dirname,
-    "../perseeption-backend/public/images/",
+    "../perseeption-backend/images/",
     "memberGcash"
   ),
   filename: function (req, file, cb) {
