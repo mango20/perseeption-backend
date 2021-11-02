@@ -29,15 +29,29 @@ const mysql = require("mysql");
 //   database: "perseeption_db-36352871",
 // });
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: ["*"],
-//     methods: ["GET", "POST", "DELETE", "PUT"],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors(
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      methods: ["GET", "POST", "DELETE", "PUT"],
+      withCredentials: true,
+    }
+  )
+);
 
-app.use(cors());
+app.all("*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
+// origin: ["*"],
+// app.use(cors());
 
 // var corsOptions = {
 //   origin: true,
@@ -80,7 +94,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // );
 
 // app.options("*", cors());
-
+app.use(function (req, res, next) {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://perseep-frontend.herokuapp.com"
+  ); // update to match the domain you will make the request from
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 app.post("/insertContactUsMsg", (req, res) => {
   const contact_name = req.body.contact_name;
   const contact_number = req.body.contact_number;
