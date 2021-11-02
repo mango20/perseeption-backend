@@ -34,8 +34,7 @@ app.use(
     origin: ["*"],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
+    preflightContinue: true,
   })
 );
 
@@ -198,7 +197,7 @@ app.get("/api/getMainEvent", (req, res) => {
 
 //-----------------
 
-app.get("/api/getMemberAnnouncement", cors(), (req, res) => {
+app.get("/api/getMemberAnnouncement", (req, res) => {
   const sqlSelect =
     "SELECT ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT, DATE_FORMAT(ANNOUNCEMENT_DATE, '%Y-%m-%d') as ANNOUNCEMENT_DATE FROM admin_announcement ORDER BY ANNOUNCEMENT_ID DESC";
   db.query(sqlSelect, (err, result) => {
