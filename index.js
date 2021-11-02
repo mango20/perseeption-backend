@@ -9,8 +9,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-// const storage = multer.diskStorage({})
-// const multer = require({ storage: storage });
+const storage = multer.diskStorage({});
+const multer = require({ storage: storage });
 
 const mysql = require("mysql");
 // const { Redirect } = require("react-router");
@@ -79,15 +79,15 @@ const db = mysql.createConnection({
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(
-//   session({
-//     key: "USER_ID",
-//     secret: "pavicOrg", //organization
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: { expires: 60 * 60 * 24 },
-//   })
-// );
+app.use(
+  session({
+    key: "USER_ID",
+    secret: "pavicOrg", //organization
+    resave: false,
+    saveUninitialized: false,
+    cookie: { expires: 60 * 60 * 24 },
+  })
+);
 
 // app.options("*", cors());
 // app.use(function (req, res, next) {
@@ -118,7 +118,7 @@ app.get("/countGenderFemale", (req, res) => {
 const storage_AddMember = multer.diskStorage({
   destination: path.join(
     __dirname,
-    "../perseeption/public/images/",
+    "../perseeption-backend/public/images/",
     "memberGcash"
   ),
   filename: function (req, file, cb) {
