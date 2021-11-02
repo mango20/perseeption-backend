@@ -192,6 +192,7 @@ app.get("/api/getForumReply", (req, res) => {
 
 //--------------------Main Events-------------------------
 app.get("/api/getMainEvent", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   const sqlSelect =
     "SELECT EVENT_TITLE, EVENT_CONTENT, DATE_FORMAT(EVENT_DATE, '%Y-%m-%d') as EVENT_DATE FROM admin_events ORDER BY EVENT_ID DESC LIMIT 3";
   db.query(sqlSelect, (err, result) => {
