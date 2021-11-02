@@ -30,11 +30,11 @@ const mysql = require("mysql");
 // });
 
 const db = mysql.createConnection({
-  host: "mysql.stackcp.com",
-  port: 57230,
-  user: "perseeption_db-36352871",
-  password: "WA|K^#,sj2!%",
-  database: "perseeption_db-36352871",
+  host: "us-cdbr-east-04.cleardb.com",
+  port: 3306,
+  user: "bc62b0ccf843e4",
+  password: "8a4f31cb",
+  database: "heroku_ac00d9532dbe104",
 });
 
 // const db = mysql.createPool({
@@ -851,7 +851,7 @@ app.post("/login", (req, res) => {
   });
 });
 const path = require("path");
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 3003;
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("build"));
