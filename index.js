@@ -331,6 +331,7 @@ app.post("/api/insertAnnouncement", (req, res) => {
     [ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT, USER_ID],
     (err, result) => {
       res.send(result);
+      console.log(result);
     }
   );
 });
