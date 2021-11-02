@@ -9,8 +9,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-const storage = multer.diskStorage({});
-const multer = require({ storage: storage });
+const nodemailer = require("nodemailer");
+
+const multer = require("multer");
 
 const mysql = require("mysql");
 // const { Redirect } = require("react-router");
