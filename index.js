@@ -30,26 +30,19 @@ const mysql = require("mysql");
 // });
 app.use(express.json());
 app.use(
-  cors(
-    {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    },
-    {
-      methods: ["GET", "POST", "DELETE", "PUT"],
-      withCredentials: true,
-    }
-  )
+  cors({
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    withCredentials: true,
+    preflightContinue: false,
+  })
 );
 
-app.all("*", function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
+// app.all("*", function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   res.header("Access-Control-Allow-Headers", "Content-Type");
+//   next();
+// });
 // origin: ["*"],
 // app.use(cors());
 
@@ -94,17 +87,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // );
 
 // app.options("*", cors());
-app.use(function (req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://perseep-frontend.herokuapp.com"
-  ); // update to match the domain you will make the request from
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.header(
+//     "Access-Control-Allow-Origin",
+//     "https://perseep-frontend.herokuapp.com"
+//   ); // update to match the domain you will make the request from
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 app.post("/insertContactUsMsg", (req, res) => {
   const contact_name = req.body.contact_name;
   const contact_number = req.body.contact_number;
@@ -217,6 +210,10 @@ app.use(express.static("public"));
 //--------------------Main Events-------------------------
 app.get("/api/getMainEvent", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   const sqlSelect =
     "SELECT EVENT_TITLE, EVENT_CONTENT, DATE_FORMAT(EVENT_DATE, '%Y-%m-%d') as EVENT_DATE FROM admin_events ORDER BY EVENT_ID DESC LIMIT 3";
   db.query(sqlSelect, (err, result) => {
@@ -225,6 +222,10 @@ app.get("/api/getMainEvent", (req, res) => {
     } else {
       // console.log(err);
       res.header("Access-Control-Allow-Origin", "*");
+      res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+      );
       res.send(result);
     }
   });
