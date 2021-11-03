@@ -161,7 +161,7 @@ app.post(
         }
 
         const announcement_details = {
-          EVENT_IMAGE: req.body.filename,
+          EVENT_IMAGE: req.file.filename,
           EVENT_TITLE: "req.body.title",
           EVENT_CONTENT: "req.body.content",
         };
