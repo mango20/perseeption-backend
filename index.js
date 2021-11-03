@@ -141,7 +141,7 @@ app.post("/uploadEventImage", (req, res) => {
   const sql = "INSERT INTO admin_events SET ?";
   db.query(sql, announcement_details, (err, results) => {
     if (err) throw err;
-    res.json({ success: 1 });
+    res.send(results);
   });
   // res.send(req.file.filename);
 });
