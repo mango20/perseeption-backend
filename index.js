@@ -265,7 +265,11 @@ app.get("/readMoreAnnouncement/:ANNOUNCEMENT_ID", (req, res) => {
 });
 
 const storage_eventImg = multer.diskStorage({
-  destination: path.join(__dirname, "./images/", "eventImage"),
+  destination: path.join(
+    __dirname,
+    ".../perseeption-tromagade/public/images/",
+    "eventImage"
+  ),
   filename: function (req, file, cb) {
     // null as first argument means no error
     cb(null, Date.now() + "-" + file.originalname);
