@@ -146,7 +146,7 @@ app.post(
     try {
       // 'avatar' is the name of our file input field in the HTML form
 
-      let upload = multer({ storage: storage_eventImg }).single("image");
+      let upload = multer({ storage: storage_eventImg_ }).single("image");
 
       upload(req, res, function (err) {
         // req.file contains information of uploaded file
