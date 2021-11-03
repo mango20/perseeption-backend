@@ -166,11 +166,13 @@ app.post(
           EVENT_CONTENT: "req.body.content",
         };
 
-        cloudinary.uploader.upload(req.file, 
-            { public_id: "hehe" },
+        cloudinary.uploader.upload(
+          req.file.filename,
+          { public_id: "hehe" },
           function (error, result) {
-          console.log(result);
-        });
+            console.log(result);
+          }
+        );
 
         console.log(announcement_details);
         const sql = "INSERT INTO admin_events SET ?";
