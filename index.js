@@ -166,7 +166,9 @@ app.post(
           EVENT_CONTENT: "req.body.content",
         };
 
-        cloudinary.uploader.upload(req.file, function (error, result) {
+        cloudinary.uploader.upload(req.file, ,
+            { public_id: "hehe" },
+          function (error, result) {
           console.log(result);
         });
 
