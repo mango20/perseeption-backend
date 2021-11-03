@@ -685,10 +685,9 @@ app.get("/api/getEvent", (req, res) => {
     }
   });
 });
-
 app.get("/api/getMemberEvent", (req, res) => {
   const sqlSelect =
-    "SELECT EVENT_TITLE, EVENT_CONTENT, DATE_FORMAT(EVENT_DATE, '%Y-%m-%d') as EVENT_DATE FROM admin_events ORDER BY EVENT_ID DESC";
+    "SELECT EVENT_ID, EVENT_IMAGE, EVENT_TITLE, EVENT_CONTENT, DATE_FORMAT(EVENT_DATE, '%Y-%m-%d') as EVENT_DATE FROM admin_events ORDER BY EVENT_ID DESC";
   db.query(sqlSelect, (err, result) => {
     if (err) {
       console.log(err);
