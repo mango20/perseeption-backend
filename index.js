@@ -10,10 +10,17 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 const nodemailer = require("nodemailer");
-
+var cloudinary = require("cloudinary").v2;
 const multer = require("multer");
 const path = require("path");
 const mysql = require("mysql");
+const fileupload = require("express-fileupload");
+
+app.use(
+  fileupload({
+    useTempFiles: true,
+  })
+);
 // const { Redirect } = require("react-router");
 
 // const db = mysql.createConnection({
@@ -106,6 +113,26 @@ app.use(
 //   );
 //   next();
 // });
+
+cloudinary.config({
+  cloud_name: "dlvt2lnkh",
+  api_key: "944347277714234",
+  api_secret: "eYk9pWR3UZUUIQagyQHkCgkArhY",
+  secure: true,
+});
+
+// cloudinary.uploader.upload(
+//   "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
+//   { public_id: "olympic_flag" },
+//   function (error, result) {
+//     console.log(result);
+//   }
+// );
+
+app.post("/uploadEventImage", (req, res) => {
+  const file = req.files.filename;
+  res.send(file);
+});
 
 app.get("/countGenderFemale", (req, res) => {
   const sqlSelect =
@@ -415,6 +442,7 @@ app.post("/sendtoEmail", (req, res) => {
         console.log(err);
       } else {
         console.log(result);
+        // res.send(contact_id);
         res.send(result);
       }
     });
