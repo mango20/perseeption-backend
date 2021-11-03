@@ -132,7 +132,7 @@ cloudinary.config({
 app.post("/uploadEventImage", (req, res) => {
   // const file = req.file.filename;
   const announcement_details = {
-    EVENT_IMAGE: req.file.filename,
+    EVENT_IMAGE: req.body.filename,
     EVENT_TITLE: "req.body.title",
     EVENT_CONTENT: "req.body.content",
   };
