@@ -405,6 +405,21 @@ app.post("/sendtoEmail", (req, res) => {
     });
   });
 
+  app.delete("/deleteContactUsMsgt/:contact_id", (req, res) => {
+    const contact_id = req.params.contact_id;
+    console.log(contact_id);
+    const sqlDelete = "DELETE FROM contact_us WHERE contact_id = ?";
+
+    db.query(sqlDelete, contact_id, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        res.send(result);
+      }
+    });
+  });
+
   const mailOptions = {
     from: "perseeption2021@gmail.com",
     to: EmailContact,
