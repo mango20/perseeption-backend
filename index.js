@@ -166,9 +166,9 @@ app.post(
           EVENT_CONTENT: "req.body.content",
         };
 
-        console.log(event_details);
+        console.log(announcement_details);
         const sql = "INSERT INTO admin_events SET ?";
-        db.query(sql, event_details, (err, results) => {
+        db.query(sql, announcement_details, (err, results) => {
           if (err) throw err;
           res.json({ success: 1 });
         });
