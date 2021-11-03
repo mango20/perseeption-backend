@@ -131,7 +131,19 @@ cloudinary.config({
 
 app.post("/uploadEventImage", (req, res) => {
   const file = req.file.filename;
-  res.send(req.file.filename);
+  const announcement_details = {
+    EVENT_IMAGE: req.file.filename,
+    EVENT_TITLE: req.body.title,
+    EVENT_CONTENT: req.body.content,
+  };
+
+  console.log(announcement_details);
+  const sql = "INSERT INTO admin_events SET ?";
+  db.query(sql, announcement_details, (err, results) => {
+    if (err) throw err;
+    res.json({ success: 1 });
+  });
+  // res.send(req.file.filename);
 });
 
 app.get("/countGenderFemale", (req, res) => {
