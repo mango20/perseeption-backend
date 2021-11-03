@@ -89,7 +89,7 @@ app.use(
     key: "USER_ID",
     secret: "pavicOrg", //organization
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { expires: 60 * 60 * 24, secure: true },
   })
 );
