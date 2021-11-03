@@ -234,6 +234,36 @@ app.post("/uploadGCash", async (req, res) => {
   }
 });
 
+app.get("/readMoreEvent/:EVENT_ID", (req, res) => {
+  const EVENT_ID = req.params.EVENT_ID;
+  console.log(EVENT_ID);
+  const sqlGet = "SELECT * FROM admin_events WHERE EVENT_ID = ?";
+
+  db.query(sqlGet, EVENT_ID, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+app.get("/readMoreAnnouncement/:ANNOUNCEMENT_ID", (req, res) => {
+  const ANNOUNCEMENT_ID = req.params.ANNOUNCEMENT_ID;
+  console.log(ANNOUNCEMENT_ID);
+  const sqlGet = "SELECT * FROM admin_announcement WHERE ANNOUNCEMENT_ID = ?";
+
+  db.query(sqlGet, ANNOUNCEMENT_ID, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
 const storage_eventImg = multer.diskStorage({
   destination: path.join(__dirname, "./images/", "eventImage"),
   filename: function (req, file, cb) {
