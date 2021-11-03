@@ -550,13 +550,12 @@ app.use(express.static("public"));
 //--------------------Main Events-------------------------
 app.get("/api/getMainEvent", (req, res) => {
   const sqlSelect =
-    "SELECT EVENT_TITLE, EVENT_CONTENT, DATE_FORMAT(EVENT_DATE, '%Y-%m-%d') as EVENT_DATE FROM admin_events ORDER BY EVENT_ID DESC LIMIT 3";
+    "SELECT EVENT_TITLE, EVENT_IMAGE, EVENT_CONTENT, DATE_FORMAT(EVENT_DATE, '%Y-%m-%d') as EVENT_DATE FROM admin_events ORDER BY EVENT_ID DESC LIMIT 3";
   db.query(sqlSelect, (err, result) => {
     if (err) {
       console.log(err);
     } else {
       // console.log(err);
-
       res.send(result);
     }
   });
