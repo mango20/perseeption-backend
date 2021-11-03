@@ -16,11 +16,11 @@ const path = require("path");
 const mysql = require("mysql");
 const fileupload = require("express-fileupload");
 
-app.use(
-  fileupload({
-    useTempFiles: true,
-  })
-);
+// app.use(
+//   fileupload({
+//     useTempFiles: true,
+//   })
+// );
 // const { Redirect } = require("react-router");
 
 // const db = mysql.createConnection({
@@ -130,11 +130,11 @@ cloudinary.config({
 // );
 
 app.post("/uploadEventImage", (req, res) => {
-  const file = req.file.filename;
+  // const file = req.file.filename;
   const announcement_details = {
     EVENT_IMAGE: req.file.filename,
-    EVENT_TITLE: req.body.title,
-    EVENT_CONTENT: req.body.content,
+    EVENT_TITLE: "req.body.title",
+    EVENT_CONTENT: "req.body.content",
   };
 
   console.log(announcement_details);
