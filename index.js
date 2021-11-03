@@ -128,23 +128,57 @@ cloudinary.config({
 //     console.log(result);
 //   }
 // );
-
-app.post("/uploadEventImage", (req, res) => {
-  // const file = req.file.filename;
-  const announcement_details = {
-    EVENT_IMAGE: req.body.EVENT_IMAGE,
-    EVENT_TITLE: "req.body.title",
-    EVENT_CONTENT: "req.body.content",
-  };
-
-  console.log(announcement_details);
-  const sql = "INSERT INTO admin_events SET ?";
-  db.query(sql, announcement_details, (err, results) => {
-    if (err) throw err;
-    res.send(results);
-  });
-  // res.send(req.file.filename);
+const storage_eventImg_ = multer.diskStorage({
+  // destination: path.join(
+  //   __dirname,
+  //   ".../perseeption-tromagade/public/images/",
+  //   "eventImage"
+  // ),
+  filename: function (req, file, cb) {
+    // null as first argument means no error
+    cb(null, Date.now() + "-" + file.originalname);
+  },
 });
+
+app.post(
+  "/uploadEventImage",
+  async (req, res) => {
+    try {
+      // 'avatar' is the name of our file input field in the HTML form
+
+      let upload = multer({ storage: storage_eventImg }).single("image");
+
+      upload(req, res, function (err) {
+        // req.file contains information of uploaded file
+        // req.body contains information of text fields
+
+        if (!req.file) {
+          return res.send("Please select an image to upload");
+        } else if (err instanceof multer.MulterError) {
+          return res.send(err);
+        } else if (err) {
+          return res.send(err);
+        }
+
+        const announcement_details = {
+          EVENT_IMAGE: req.body.filename,
+          EVENT_TITLE: "req.body.title",
+          EVENT_CONTENT: "req.body.content",
+        };
+
+        console.log(event_details);
+        const sql = "INSERT INTO admin_events SET ?";
+        db.query(sql, event_details, (err, results) => {
+          if (err) throw err;
+          res.json({ success: 1 });
+        });
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  // res.send(req.file.filename);
+);
 
 app.get("/countGenderFemale", (req, res) => {
   const sqlSelect =
@@ -304,11 +338,11 @@ app.get("/readMoreAnnouncement/:ANNOUNCEMENT_ID", (req, res) => {
 });
 
 const storage_eventImg = multer.diskStorage({
-  destination: path.join(
-    __dirname,
-    ".../perseeption-tromagade/public/images/",
-    "eventImage"
-  ),
+  // destination: path.join(
+  //   __dirname,
+  //   ".../perseeption-tromagade/public/images/",
+  //   "eventImage"
+  // ),
   filename: function (req, file, cb) {
     // null as first argument means no error
     cb(null, Date.now() + "-" + file.originalname);
