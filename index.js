@@ -613,6 +613,22 @@ app.put("/api/updateAnnouncementContent", (req, res) => {
   );
 });
 
+app.get("/api/getForumReply_/:FORUM_ID", (req, res) => {
+  const FORUM_ID = req.params.FORUM_ID;
+  console.log(FORUM_ID);
+  const sqlSelect =
+    "SELECT forum_reply.*, forum_content.FORUM_ID, user.ADMIN_NAME FROM forum_reply JOIN user ON forum_reply.USER_ID=user.USER_ID JOIN forum_content ON forum_content.FORUM_ID=forum_reply.FORUM_ID WHERE forum_reply.FORUM_ID = ?";
+  db.query(sqlSelect, FORUM_ID, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(err);
+      res.send(result);
+      console.log(result);
+    }
+  });
+});
+
 // UPDATE
 app.put("/api/updateAnnouncementTitle", (req, res) => {
   const ANNOUNCEMENT_ID = req.body.ANNOUNCEMENT_ID; // Get the Parameter
