@@ -1117,6 +1117,20 @@ app.get("/api/AdminList", (req, res) => {
   });
 });
 
+app.get("/AdminList", (req, res) => {
+  const sqlSelectPending =
+    "SELECT USER_ID, USERNAME,ADMIN_ADDRESS, ADMIN_CONTACT,  USER_REQUEST, ADMIN_EMAIL, DATE_FORMAT(REGISTRATION_DATE, '%Y-%m-%d') as REGISTRATION_DATE FROM user WHERE USER_TYPE = 'Admin'";
+  db.query(sqlSelectPending, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(err);
+      res.send(result);
+      // console.log(result);
+    }
+  });
+});
+
 // VERIFY
 app.get("/login", (req, res) => {
   if (req.session.user) {
