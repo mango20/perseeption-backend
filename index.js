@@ -130,7 +130,7 @@ cloudinary.config({
 // );
 
 app.post("/uploadEventImage", (req, res) => {
-  const file = req.files.filename;
+  const file = req.file.filename;
   res.send(file);
 });
 
