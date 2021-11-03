@@ -1117,6 +1117,31 @@ app.get("/api/AdminList", (req, res) => {
   });
 });
 
+app.get("/getContactUsMsg", (req, res) => {
+  const sqlSelect = "SELECT * FROM contact_us ORDER BY contact_id DESC";
+  db.query(sqlSelect, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(err);
+      res.send(result);
+    }
+  });
+});
+
+app.get("/getContactUsMsg/:contact_id", (req, res) => {
+  const id = req.params.contact_id;
+  const sqlSelect = "SELECT * FROM contact_us ORDER BY contact_id =?  DESC";
+  db.query(sqlSelect, id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(err);
+      res.send(result);
+    }
+  });
+});
+
 app.get("/AdminList", (req, res) => {
   const sqlSelectPending =
     "SELECT USER_ID, USERNAME,ADMIN_ADDRESS, ADMIN_CONTACT,  USER_REQUEST, ADMIN_EMAIL, DATE_FORMAT(REGISTRATION_DATE, '%Y-%m-%d') as REGISTRATION_DATE FROM user WHERE USER_TYPE = 'Admin'";
