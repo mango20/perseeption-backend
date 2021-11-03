@@ -1071,7 +1071,6 @@ app.get("/api/AdminList", (req, res) => {
 app.get("/login", (req, res) => {
   if (req.session.user) {
     res.send({ loggedIn: true, user: req.session.user });
-    // console.log("hey");
   } else {
     res.send({ loggedIn: false });
     // return res.redirect("/");
