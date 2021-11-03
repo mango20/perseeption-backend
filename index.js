@@ -16,11 +16,11 @@ const path = require("path");
 const mysql = require("mysql");
 const fileupload = require("express-fileupload");
 
-app.use(
-  fileupload({
-    useTempFiles: true,
-  })
-);
+// app.use(
+//   fileupload({
+//     useTempFiles: true,
+//   })
+// );
 // const { Redirect } = require("react-router");
 
 // const db = mysql.createConnection({
@@ -128,28 +128,31 @@ cloudinary.config({
 //     console.log(result);
 //   }
 // );
-const storage_eventImg_ = multer.diskStorage({
-  // destination: path.join(
-  //   __dirname,
-  //   ".../perseeption-tromagade/public/images/",
-  //   "eventImage"
-  // ),
-  filename: function (req, file, cb) {
-    // null as first argument means no error
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
 
-app.post(
-  "/uploadEventImage",
-  async (req, res) => {
-    const file = req.files.EVENT_IMAGE;
-    cloudinary.uploader.upload(file.tempFilePath, function (error, result) {
+app.post("/uploadEventImage", (req, res) => {
+  // const file = req.file.filename;
+  const announcement_details = {
+    EVENT_IMAGE: req.body.EVENT_IMAGE,
+    EVENT_TITLE: "req.body.title",
+    EVENT_CONTENT: "req.body.content",
+  };
+
+  cloudinary.uploader.upload(
+    req.body.EVENT_IMAGE,
+    { public_id: "olympic_flag" },
+    function (error, result) {
       console.log(result);
-    });
-  }
+    }
+  );
+
+  console.log(announcement_details);
+  const sql = "INSERT INTO admin_events SET ?";
+  db.query(sql, announcement_details, (err, results) => {
+    if (err) throw err;
+    res.send(results);
+  });
   // res.send(req.file.filename);
-);
+});
 
 app.get("/countGenderFemale", (req, res) => {
   const sqlSelect =
@@ -309,11 +312,11 @@ app.get("/readMoreAnnouncement/:ANNOUNCEMENT_ID", (req, res) => {
 });
 
 const storage_eventImg = multer.diskStorage({
-  // destination: path.join(
-  //   __dirname,
-  //   ".../perseeption-tromagade/public/images/",
-  //   "eventImage"
-  // ),
+  destination: path.join(
+    __dirname,
+    ".../perseeption-tromagade/public/images/",
+    "eventImage"
+  ),
   filename: function (req, file, cb) {
     // null as first argument means no error
     cb(null, Date.now() + "-" + file.originalname);
