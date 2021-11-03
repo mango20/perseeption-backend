@@ -562,10 +562,9 @@ app.get("/api/getMainEvent", (req, res) => {
 });
 
 //-----------------
-
 app.get("/api/getMemberAnnouncement", (req, res) => {
   const sqlSelect =
-    "SELECT ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT, DATE_FORMAT(ANNOUNCEMENT_DATE, '%Y-%m-%d') as ANNOUNCEMENT_DATE FROM admin_announcement ORDER BY ANNOUNCEMENT_ID DESC";
+    "SELECT ANNOUNCEMENT_ID, ANNOUNCEMENT_TITLE, ANNOUNCEMENT_IMAGE,ANNOUNCEMENT_CONTENT, DATE_FORMAT(ANNOUNCEMENT_DATE, '%Y-%m-%d') as ANNOUNCEMENT_DATE FROM admin_announcement ORDER BY ANNOUNCEMENT_ID DESC";
   db.query(sqlSelect, (err, result) => {
     if (err) {
       console.log(err);
