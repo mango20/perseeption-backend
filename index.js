@@ -1061,7 +1061,7 @@ app.get("/api/AdminList", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      // console.log(err);
+      console.log(err);
       res.send(result);
     }
   });
