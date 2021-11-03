@@ -136,7 +136,7 @@ const storage_eventImg_ = multer.diskStorage({
   // ),
   filename: function (req, file, cb) {
     // null as first argument means no error
-    cb(null, file);
+    cb(null, file.originalname);
   },
 });
 
@@ -165,7 +165,10 @@ app.post(
           EVENT_TITLE: "req.body.title",
           EVENT_CONTENT: "req.body.content",
         };
-
+        const d = req.file.filename;
+        cloudinary.uploader.upload(d, function (error, result) {
+          console.log(result);
+        });
         console.log(announcement_details);
         const sql = "INSERT INTO admin_events SET ?";
         db.query(sql, announcement_details, (err, results) => {
