@@ -58,7 +58,11 @@ app.use(
 
 // app.use(cors(corsOptions));
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
+  connectionLimit: 1000,
+  connectTimeout: 60 * 60 * 1000,
+  acquireTimeout: 60 * 60 * 1000,
+  timeout: 60 * 60 * 1000,
   host: "us-cdbr-east-04.cleardb.com",
   port: 3306,
   user: "bc62b0ccf843e4",
