@@ -128,11 +128,11 @@ cloudinary.config({
 //     console.log(result);
 //   }
 // );
-
-app.post("/uploadEventImage", (req, res) => {
+var upload = multer({ storage: storage });
+app.post("/uploadEventImage", upload.single("upload_file"), (req, res) => {
   // const file = req.file.filename;
   const announcement_details = {
-    EVENT_IMAGE: req.body.EVENT_IMAGE,
+    EVENT_IMAGE: req.file.EVENT_IMAGE,
     EVENT_TITLE: "req.body.title",
     EVENT_CONTENT: "req.body.content",
   };
