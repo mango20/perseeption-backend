@@ -16,11 +16,11 @@ const path = require("path");
 const mysql = require("mysql");
 const fileupload = require("express-fileupload");
 
-// app.use(
-//   fileupload({
-//     useTempFiles: true,
-//   })
-// );
+app.use(
+  fileupload({
+    useTempFiles: true,
+  })
+);
 // const { Redirect } = require("react-router");
 
 // const db = mysql.createConnection({
@@ -136,7 +136,7 @@ const storage_eventImg_ = multer.diskStorage({
   // ),
   filename: function (req, file, cb) {
     // null as first argument means no error
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, file);
   },
 });
 
