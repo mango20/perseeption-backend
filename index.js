@@ -131,7 +131,7 @@ cloudinary.config({
 
 app.post("/uploadEventImage", (req, res) => {
   const file = req.file.filename;
-  res.send(file);
+  res.send(req.file.filename);
 });
 
 app.get("/countGenderFemale", (req, res) => {
