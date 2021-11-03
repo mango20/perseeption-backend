@@ -167,7 +167,7 @@ app.post(
         };
 
         cloudinary.uploader.upload(
-          req.file.filename,
+          file,
           { public_id: "hehe" },
           function (error, result) {
             console.log(result);
