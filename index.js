@@ -38,6 +38,7 @@ const fileupload = require("express-fileupload");
 // });
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: true,
@@ -143,7 +144,7 @@ app.post("/api/upload", async (req, res) => {
   }
 });
 
-app.get("api/imagesEvent", async (req, res) => {
+app.get("/api/imagesEvent", async (req, res) => {
   const { resources } = await cloudinary.search
     .expression("folder:eventImage")
     .sort_by("public_id", "desc")
