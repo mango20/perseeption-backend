@@ -133,7 +133,7 @@ app.post("/api/upload", async (req, res) => {
   try {
     const fileStr = req.body.data;
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
-      upload_preset: "eventImage",
+      upload_preset: "jogvnb1m",
     });
     console.log(uploadedResponse);
     res.send({ mgs: "ehgfhsgehfe" });
