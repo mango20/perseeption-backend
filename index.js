@@ -1265,7 +1265,7 @@ app.get("/AdminList", (req, res) => {
 });
 
 // VERIFY
-app.get("/login", (req, res) => {
+app.get("/login", async (req, res) => {
   if (req.session.user) {
     res.send({ loggedIn: true, user: req.session.user });
   } else {
