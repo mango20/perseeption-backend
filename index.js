@@ -145,7 +145,15 @@ app.post("/api/upload", async (req, res) => {
 
     const sql =
       "INSER INTO admin_events (EVENT_TITLE,EVENT_CONTENT, EVENT_IMAGE ) VALUES (?,?,?)";
-    db.query(sql, EVENT_TITLE, EVENT_CONTENT, uploadedResponse);
+    db.query(
+      sql,
+      EVENT_TITLE,
+      EVENT_CONTENT,
+      uploadedResponse,
+      (err, results) => {
+        if (err) throw err;
+      }
+    );
   } catch (error) {
     console.log(error);
   }
