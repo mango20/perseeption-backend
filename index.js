@@ -143,9 +143,7 @@ let upload = multer({ dest: storage_AddMember }).single("image");
 app.post("/uploadEventImage", upload.single("image"), async (req, res) => {
   // 'avatar' is the name of our file input field in the HTML form
 
-  
-    const result = await cloudinary.uploader.upload(req.file.path);
-  });
+  const result = await cloudinary.uploader.upload(req.file.path);
   // upload_(req, res, async function (err) {
   // cloudinary.uploader.upload(req.file.fileFilter);
 
