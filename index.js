@@ -136,15 +136,15 @@ app.post("/api/upload", async (req, res) => {
     const EVENT_TITLE = req.body.EVENT_TITLE;
     const EVENT_CONTENT = req.body.EVENT_CONTENT;
     const fileStr = req.body.data;
-    const sql =
-      "INSERT INTO admin_events (EVENT_TITLE,EVENT_CONTENT, EVENT_IMAGE ) VALUES (?,?,?)";
-    db.query(sql, EVENT_TITLE, EVENT_CONTENT, fileStr, (err, results) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(results);
-      }
-    });
+    // const sql =
+    //   "INSERT INTO admin_events (EVENT_TITLE,EVENT_CONTENT, EVENT_IMAGE ) VALUES (?,?,?)";
+    // db.query(sql, EVENT_TITLE, EVENT_CONTENT, fileStr, (err, results) => {
+    //   if (err) {
+    //     console.log(err);
+    //   } else {
+    //     res.send(results);
+    //   }
+    // });
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
       upload_preset: "jogvnb1m",
     });
