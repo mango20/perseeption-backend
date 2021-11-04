@@ -145,25 +145,24 @@ app.post("/uploadEventImage", async (req, res) => {
   let upload = multer({ dest: storage_e_ }).single("image");
   // const result = await cloudinary.uploader.upload(req.file.path);
   upload(req, res, async function (err) {
-  // cloudinary.uploader.upload(req.file.fileFilter);
+    // cloudinary.uploader.upload(req.file.fileFilter);
 
-  const file = req.file.filename;
+    const file = req.file.filename;
 
+    cloudinary.uploader.upload(
+      file,
+      { public_id: "hehehe" },
+      function (error, result) {
+        console.log(result);
+      }
+    );
 
-  cloudinary.uploader.upload(
-    file,
-    { public_id: "hehehe" },
-    function (error, result) {
-      console.log(result);
-    }
-  );
-
-  // console.log(announcement_details);
-  // const sql = "INSERT INTO admin_events SET ?";
-  // db.query(sql, announcement_details, (err, results) => {
-  //   if (err) throw err;
-  //   res.send(results);
-  // });
+    // console.log(announcement_details);
+    // const sql = "INSERT INTO admin_events SET ?";
+    // db.query(sql, announcement_details, (err, results) => {
+    //   if (err) throw err;
+    //   res.send(results);
+  });
   // res.send(req.file.filename);
 });
 
