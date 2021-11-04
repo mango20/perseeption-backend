@@ -147,7 +147,7 @@ app.post("/uploadEventImage", async (req, res) => {
   upload(req, res, async function (err) {
     // cloudinary.uploader.upload(req.file.fileFilter);
 
-    const file = req.file.fileFilter;
+    const file = req.file;
 
     cloudinary.uploader.upload(
       file,
