@@ -135,10 +135,23 @@ const storage_e_ = multer.diskStorage({
   },
 });
 app.post("/uploadEventImage", async (req, res) => {
+  // 'avatar' is the name of our file input field in the HTML form
+
   let upload_ = multer({ storage: storage_e_ }).single("image");
   upload_(req, res, async function (err) {
-   cloudinary.uploader.upload(req.file.fileFilter);
-  
+    if (!req.file) {
+      return res.send("Please select an image to upload");
+    } else if (err instanceof multer.MulterError) {
+      return res.send(err);
+    } else if (err) {
+      return res.send(err);
+    }
+    const p = req.file.fileFilter;
+    cloudinary.uploader.upload(p);
+  });
+  // upload_(req, res, async function (err) {
+  // cloudinary.uploader.upload(req.file.fileFilter);
+
   // const file = req.file.filename;
   // const announcement_details = {
   //   EVENT_IMAGE: req.body.EVENT_IMAGE,
