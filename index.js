@@ -134,6 +134,7 @@ const storage_e_ = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
+const path = require("path");
 app.post("/uploadEventImage", async (req, res) => {
   // 'avatar' is the name of our file input field in the HTML form
 
@@ -146,15 +147,7 @@ app.post("/uploadEventImage", async (req, res) => {
     } else if (err) {
       return res.send(err);
     }
-    const p = req.file.fileFilter;
-    console.log(p);
-    cloudinary.uploader.upload(
-      p,
-      { public_id: "hehehe" },
-      function (error, result) {
-        console.log(result);
-      }
-    );
+    const result = await cloudinary.uploader.upload(req.file.path);
   });
   // upload_(req, res, async function (err) {
   // cloudinary.uploader.upload(req.file.fileFilter);
