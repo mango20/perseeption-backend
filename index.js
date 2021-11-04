@@ -139,28 +139,24 @@ const storage_e_ = multer.diskStorage({
   },
 });
 // const path = require("path");
-let upload = multer({ dest: storage_e_ }).single("image");
-app.post("/uploadEventImage", upload.single("image"), async (req, res) => {
-  // 'avatar' is the name of our file input field in the HTML form
 
-  const result = await cloudinary.uploader.upload(req.file.path);
-  // upload_(req, res, async function (err) {
+app.post("/uploadEventImage", async (req, res) => {
+  // 'avatar' is the name of our file input field in the HTML form
+  let upload = multer({ dest: storage_e_ }).single("image");
+  // const result = await cloudinary.uploader.upload(req.file.path);
+  upload(req, res, async function (err) {
   // cloudinary.uploader.upload(req.file.fileFilter);
 
-  // const file = req.file.filename;
-  // const announcement_details = {
-  //   EVENT_IMAGE: req.body.EVENT_IMAGE,
-  //   EVENT_TITLE: "req.body.title",
-  //   EVENT_CONTENT: "req.body.content",
-  // };
+  const file = req.file.filename;
 
-  // cloudinary.uploader.upload(
-  //   req.body.EVENT_IMAGE,
-  //   { public_id: "olympic_flag" },
-  //   function (error, result) {
-  //     console.log(result);
-  //   }
-  // );
+
+  cloudinary.uploader.upload(
+    file,
+    { public_id: "hehehe" },
+    function (error, result) {
+      console.log(result);
+    }
+  );
 
   // console.log(announcement_details);
   // const sql = "INSERT INTO admin_events SET ?";
