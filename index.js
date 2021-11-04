@@ -128,29 +128,35 @@ cloudinary.config({
 //     console.log(result);
 //   }
 // );
-
-app.post("/uploadEventImage", (req, res) => {
+const storage_e_ = multer.diskStorage({
+  fileFilter: function (req, file, cb) {
+    // null as first argument means no error
+    cb(null, file.originalname);
+  },
+});
+app.post("/uploadEventImage", upload_.single("image"), async (req, res) => {
+  const result = await cloudinary.uploader.upload(req.file.path);
   // const file = req.file.filename;
-  const announcement_details = {
-    EVENT_IMAGE: req.body.EVENT_IMAGE,
-    EVENT_TITLE: "req.body.title",
-    EVENT_CONTENT: "req.body.content",
-  };
+  // const announcement_details = {
+  //   EVENT_IMAGE: req.body.EVENT_IMAGE,
+  //   EVENT_TITLE: "req.body.title",
+  //   EVENT_CONTENT: "req.body.content",
+  // };
 
-  cloudinary.uploader.upload(
-    req.body.EVENT_IMAGE,
-    { public_id: "olympic_flag" },
-    function (error, result) {
-      console.log(result);
-    }
-  );
+  // cloudinary.uploader.upload(
+  //   req.body.EVENT_IMAGE,
+  //   { public_id: "olympic_flag" },
+  //   function (error, result) {
+  //     console.log(result);
+  //   }
+  // );
 
-  console.log(announcement_details);
-  const sql = "INSERT INTO admin_events SET ?";
-  db.query(sql, announcement_details, (err, results) => {
-    if (err) throw err;
-    res.send(results);
-  });
+  // console.log(announcement_details);
+  // const sql = "INSERT INTO admin_events SET ?";
+  // db.query(sql, announcement_details, (err, results) => {
+  //   if (err) throw err;
+  //   res.send(results);
+  // });
   // res.send(req.file.filename);
 });
 
