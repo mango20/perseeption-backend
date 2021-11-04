@@ -133,8 +133,8 @@ cloudinary.config({
 app.post("/api/upload", async (req, res) => {
   try {
     const fileStr = req.body.data;
-    const EVENT_TITLE = req.body.EVENT_TITLE;
-    const EVENT_CONTENT = req.body.EVENT_CONTENT;
+    // const EVENT_TITLE = req.body.EVENT_TITLE;
+    // const EVENT_CONTENT = req.body.EVENT_CONTENT;
     const fileStr = req.body.data;
     // const sql =
     //   "INSERT INTO admin_events (EVENT_TITLE,EVENT_CONTENT, EVENT_IMAGE ) VALUES (?,?,?)";
