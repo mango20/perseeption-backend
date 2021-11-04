@@ -139,7 +139,7 @@ const storage_e_ = multer.diskStorage({
   },
 });
 // const path = require("path");
-let upload = multer({ dest: storage_AddMember }).single("image");
+let upload = multer({ dest: storage_e_ }).single("image");
 app.post("/uploadEventImage", upload.single("image"), async (req, res) => {
   // 'avatar' is the name of our file input field in the HTML form
 
