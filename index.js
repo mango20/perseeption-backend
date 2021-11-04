@@ -159,13 +159,23 @@ app.post("/api/upload", async (req, res) => {
 });
 
 app.get("/api/imagesEvent", async (req, res) => {
-  const { resources } = await cloudinary.search
-    .expression("folder:eventImage")
-    .sort_by("public_id", "desc")
-    .max_results(30)
-    .execute();
-  const publicIds = resources.map((file) => file.public_id);
-  res.send(publicIds);
+  // const { resources } = await cloudinary.search
+  //   .expression("folder:eventImage")
+  //   .sort_by("public_id", "desc")
+  //   .max_results(30)
+  //   .execute();
+  // const publicIds = resources.map((file) => file.public_id);
+  // res.send(publicIds);
+  const sqlGet = "SELECT * FROM admin_events";
+
+  db.query(sqlGet, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
 });
 const storage_e_ = multer.diskStorage({
   fileFilter: function (req, file, cb) {
