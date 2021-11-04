@@ -137,7 +137,7 @@ const storage_e_ = multer.diskStorage({
 app.post("/uploadEventImage", async (req, res) => {
   let upload_ = multer({ storage: storage_e_ }).single("image");
   upload_(req, res, async function (err) {
-    const result = await cloudinary.uploader.upload(req.file.fileFilter);
+   cloudinary.uploader.upload(req.file.fileFilter);
   
   // const file = req.file.filename;
   // const announcement_details = {
