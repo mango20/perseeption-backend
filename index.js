@@ -128,6 +128,20 @@ cloudinary.config({
 //     console.log(result);
 //   }
 // );
+
+app.post("/api/upload", async (req, res) => {
+  try {
+    const fileStr = req.body.data;
+    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "eventImage",
+    });
+    console.log(uploadedResponse);
+    res.send({ mgs: "ehgfhsgehfe" });
+    console.log(fileStr);
+  } catch (error) {
+    console.log(error);
+  }
+});
 const storage_e_ = multer.diskStorage({
   fileFilter: function (req, file, cb) {
     let ext = path.extname(file.originalname);
