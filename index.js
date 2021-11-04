@@ -147,7 +147,13 @@ app.post("/uploadEventImage", async (req, res) => {
       return res.send(err);
     }
     const p = req.file.fileFilter;
-    cloudinary.uploader.upload(p);
+    cloudinary.uploader.upload(
+      p,
+      { public_id: "hehehe" },
+      function (error, result) {
+        console.log(result);
+      }
+    );
   });
   // upload_(req, res, async function (err) {
   // cloudinary.uploader.upload(req.file.fileFilter);
