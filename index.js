@@ -147,7 +147,8 @@ app.get("api/imagesEvent", async (req, res) => {
   const { resources } = await cloudinary.search
     .expression("folder:eventImage")
     .sort_by("public_id", "desc")
-    .max_results(30).execute;
+    .max_results(30)
+    .execute();
   const publicIds = resources.map((file) => file.public_id);
   res.send(publicIds);
 });
