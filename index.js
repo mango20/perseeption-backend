@@ -141,22 +141,17 @@ app.post("/api/upload", async (req, res) => {
       upload_preset: "jogvnb1m",
     });
     console.log(uploadedResponse);
+    const url = uploadedResponse.public_id;
     res.send({ mgs: "ehgfhsgehfe" });
     const sql =
       "INSERT INTO admin_events (EVENT_TITLE,EVENT_CONTENT, EVENT_IMAGE ) VALUES (?,?,?)";
-    db.query(
-      sql,
-      EVENT_TITLE,
-      EVENT_CONTENT,
-      uploadedResponse,
-      (err, results) => {
-        if (err) {
-          console.log(err);
-        } else {
-          res.send(results);
-        }
+    db.query(sql, EVENT_TITLE, EVENT_CONTENT, url, (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(results);
       }
-    );
+    });
     console.log(fileStr);
   } catch (error) {
     console.log(error);
