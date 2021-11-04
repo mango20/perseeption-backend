@@ -144,10 +144,20 @@ app.post("/api/upload", async (req, res) => {
     console.log(fileStr);
 
     const sql =
-      "INSER INTO admin_events (EVENT_TITLE,EVENT_CONTENT, EVENT_IMAGE ) VALUES (?,?,?)";
-    db.query(sql, EVENT_TITLE, EVENT_CONTENT, fileStr, (err, results) => {
-      if (err) throw err;
-    });
+      "INSERT INTO admin_events (EVENT_TITLE,EVENT_CONTENT, EVENT_IMAGE ) VALUES (?,?,?)";
+    db.query(
+      sql,
+      EVENT_TITLE,
+      EVENT_CONTENT,
+      uploadedResponse,
+      (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(results);
+        }
+      }
+    );
   } catch (error) {
     console.log(error);
   }
