@@ -130,23 +130,20 @@ cloudinary.config({
 // );
 const storage_e_ = multer.diskStorage({
   fileFilter: function (req, file, cb) {
-    // null as first argument means no error
-    cb(null, file.originalname);
+    let ext = path.extname(file.originalname);
+    if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
+      cb(new Error("File type is not supported"), false);
+      return;
+    }
+    cb(null, true);
   },
 });
 const path = require("path");
-app.post("/uploadEventImage", async (req, res) => {
+let upload = multer({ dest: storage_AddMember }).single("image");
+app.post("/uploadEventImage", upload.single("image"), async (req, res) => {
   // 'avatar' is the name of our file input field in the HTML form
 
-  let upload_ = multer({ storage: storage_e_ }).single("image");
-  upload_(req, res, async function (err) {
-    if (!req.file) {
-      return res.send("Please select an image to upload");
-    } else if (err instanceof multer.MulterError) {
-      return res.send(err);
-    } else if (err) {
-      return res.send(err);
-    }
+  
     const result = await cloudinary.uploader.upload(req.file.path);
   });
   // upload_(req, res, async function (err) {
