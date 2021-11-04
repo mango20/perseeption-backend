@@ -140,30 +140,22 @@ const storage_e_ = multer.diskStorage({
 });
 // const path = require("path");
 
-app.post("/uploadEventImage", async (req, res) => {
-  // 'avatar' is the name of our file input field in the HTML form
-  let upload = multer({ dest: storage_e_ }).single("image");
-  // const result = await cloudinary.uploader.upload(req.file.path);
-  upload(req, res, async function (err) {
-    // cloudinary.uploader.upload(req.file.fileFilter);
+app.post("/uploadEvent_Admin", (req, res) => {
+  const EVENT_TITLE = req.body.EVENT_TITLE;
+  const EVENT_CONTENT = req.body.EVENT_CONTENT;
+  const EVENT_IMAGE = req.body.fileName;
 
-    const file = req.file;
-
-    cloudinary.uploader.upload(
-      file,
-      { public_id: "hehehe" },
-      function (error, result) {
-        console.log(result);
-      }
-    );
-
-    // console.log(announcement_details);
-    // const sql = "INSERT INTO admin_events SET ?";
-    // db.query(sql, announcement_details, (err, results) => {
-    //   if (err) throw err;
-    //   res.send(results);
-  });
-  // res.send(req.file.filename);
+  const sqlInsert =
+    // "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT) VALUES (?,?)";
+    "INSERT INTO  admin_events (EVENT_TITLE, EVENT_CONTENT, EVENT_IMAGE) VALUES (?,?, ?)";
+  db.query(
+    sqlInsert,
+    [EVENT_TITLE, EVENT_CONTENT, EVENT_IMAGE],
+    (err, result) => {
+      res.send(result);
+      // console.log(result);
+    }
+  );
 });
 
 app.get("/countGenderFemale", (req, res) => {
