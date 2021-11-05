@@ -541,7 +541,7 @@ app.post("/sendtoEmail", (req, res) => {
     },
   });
 
-  app.get("/getAdminInformations_/:contact_id", (req, res) => {
+  app.get("/getAdminInformations_/:contact_id", async (req, res) => {
     const contact_id = req.params.contact_id;
     console.log(contact_id);
     const sqlGet = "SELECT * FROM contact_us WHERE contact_id = ?";
