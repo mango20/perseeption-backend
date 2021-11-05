@@ -39,15 +39,14 @@ const fileupload = require("express-fileupload");
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
-app.use(
-  cors({
-    origin: true,
-    methods: ["GET", "POST", "DELETE", "PUT"],
-    credentials: true,
-    // preflightContinue: false,
-    // optionsSuccessStatus: 204,
-  })
-);
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: true,
+//     methods: ["GET", "POST", "DELETE", "PUT"],
+//     credentials: true,
+//   })
+// );
 
 // app.all("*", function (req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
@@ -1055,14 +1054,6 @@ app.post("/register", (req, res) => {
       console.log(err);
     }
 
-    // if (
-    //   USERNAME === ""
-    // ) {
-    //   res.json({
-    //     message: "Invalid",
-    //   });
-    // } else {
-    // INSERT QUERY
     const sqlInsertUser =
       "INSERT INTO user (USERNAME, USER_PASSWORD, CHILD_SURNAME, CHILD_GIVEN_NAME, CHILD_MIDDLE_NAME, FATHER_SURNAME, FATHER_GIVEN_NAME, FATHER_MIDDLE_NAME, FATHER_BIRTHDAY, MOTHER_SURNAME, MOTHER_GIVEN_NAME, MOTHER_MIDDLE_NAME, MOTHER_BIRTHDAY, GUARDIAN_SURNAME, GUARDIAN_GIVEN_NAME,GUARDIAN_MIDDLE_NAME, GUARDIAN_CONTACT, FIRST_SIBLING, SECOND_SIBLING, THIRD_SIBLING, CITY_ADDRESS, REGION_ADDRESS, PROVINCE_ADDRESS, FATHER_CONTACT, MOTHER_CONTACT, FATHER_LANDLINE, MOTHER_LANDLINE, FATHER_EMAIL, MOTHER_EMAIL, MONTHLY_INCOME, FATHER_OCCUPATION, MOTHER_OCCUPATION , CHILD_BIRTHDAY, SEX, SCHOOL_NAME, YEAR_GRADE_LEVEL, SCHOOL_ADDRESS, CAUSE_OF_BLINDNESS, TOTALY_BLIND_EYES, TB_ADD_DISABILITY, LOW_VISION_EYES, LV_ADD_DISABILITY, ADAPTIVE_LENS, STYLUS, ARTIFICIAL_EYES, COMPUTER_SCREEN, WHITE_CANE, CCTV, WHEEL_CHAIR, LARGE_PRINTS, HEARING_AID, ABACUS, BRAILLER, PHYSICAL_THERAPHY, OCCUPATIONAL_THERAPHY, SPEECH_THERAPHY, OTHER_CONDITION, USER_REQUEST, USER_TYPE)" +
       "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -1340,36 +1331,36 @@ app.get("/AdminList", (req, res) => {
   });
 });
 
-app.get("/login", async (req, res) => {
-  if (req.session.user) {
-    res.send({ loggedIn: true, user: req.session.user });
-  } else {
-    res.send({ loggedIn: false });
-    // return res.redirect("/");
-  }
-});
+// app.get("/login", async (req, res) => {
+//   if (req.session.user) {
+//     res.send({ loggedIn: true, user: req.session.user });
+//   } else {
+//     res.send({ loggedIn: false });
+//     // return res.redirect("/");
+//   }
+// });
 
 app.get("/", (req, res) => {
   res.send({ message: "hehehe" });
 });
 
 // VERYFY TOKEN
-const verifyJWT = (req, res, next) => {
-  const token = req.headers["x-access-token"];
+// const verifyJWT = (req, res, next) => {
+//   const token = req.headers["x-access-token"];
 
-  if (!token) {
-    res.send("Dont have token");
-  } else {
-    jwt.verify(token, "pavicOrg", (err, decoded) => {
-      if (err) {
-        res.json({ auth: false, message: "u failed to authenticate" });
-      } else {
-        req.mainId = decoded.USER_ID;
-        next();
-      }
-    });
-  }
-};
+//   if (!token) {
+//     res.send("Dont have token");
+//   } else {
+//     jwt.verify(token, "pavicOrg", (err, decoded) => {
+//       if (err) {
+//         res.json({ auth: false, message: "u failed to authenticate" });
+//       } else {
+//         req.mainId = decoded.USER_ID;
+//         next();
+//       }
+//     });
+//   }
+// };
 
 // LOGOUT;
 app.get("/logout", (req, res) => {
@@ -1409,54 +1400,54 @@ app.get("/logout", (req, res) => {
 //   });
 // });
 
-app.get("/isUserAuth", verifyJWT, (req, res) => {
-  res.send("Authenticated");
-});
+// app.get("/isUserAuth", verifyJWT, (req, res) => {
+//   res.send("Authenticated");
+// });
 
-// SELECT LOGIN
-app.post("/login", (req, res) => {
-  const USERNAME = req.body.USERNAME;
-  const USER_PASSWORD = req.body.USER_PASSWORD;
+// // SELECT LOGIN
+// app.post("/login", (req, res) => {
+//   const USERNAME = req.body.USERNAME;
+//   const USER_PASSWORD = req.body.USER_PASSWORD;
 
-  const sqlInsertUser = "SELECT * FROM user WHERE USERNAME = ?;";
-  db.query(sqlInsertUser, USERNAME, (err, result) => {
-    if (err) {
-      res.send({ err: err });
-    }
+//   const sqlInsertUser = "SELECT * FROM user WHERE USERNAME = ?;";
+//   db.query(sqlInsertUser, USERNAME, (err, result) => {
+//     if (err) {
+//       res.send({ err: err });
+//     }
 
-    if (result.length > 0) {
-      bcrypt.compare(
-        USER_PASSWORD,
-        result[0].USER_PASSWORD,
-        (error, response) => {
-          if (response) {
-            const USER_ID = result[0].USER_ID;
-            const token = jwt.sign({ USER_ID }, "pavicOrg", { expiresIn: 300 }); 
+//     if (result.length > 0) {
+//       bcrypt.compare(
+//         USER_PASSWORD,
+//         result[0].USER_PASSWORD,
+//         (error, response) => {
+//           if (response) {
+//             const USER_ID = result[0].USER_ID;
+//             const token = jwt.sign({ USER_ID }, "pavicOrg", { expiresIn: 300 });
 
-            req.session.user = result;
+//             req.session.user = result;
 
-            res.json({
-              auth: true,
-              token: token,
-              result: result,
-              message: "You're Logged In!",
-            });
-            // res.send(result);
-          } else {
-            res.json({
-              auth: false,
-              message: "Wrong username and password combination",
-            });
-            // res.send({ message: "Wrong username and password combination" });
-          }
-        }
-      );
-    } else {
-      res.json({ auth: false, message: "No user exist!" });
-      // res.send({ message: "User doesn't exist" });
-    }
-  });
-});
+//             res.json({
+//               auth: true,
+//               token: token,
+//               result: result,
+//               message: "You're Logged In!",
+//             });
+//             // res.send(result);
+//           } else {
+//             res.json({
+//               auth: false,
+//               message: "Wrong username and password combination",
+//             });
+//             // res.send({ message: "Wrong username and password combination" });
+//           }
+//         }
+//       );
+//     } else {
+//       res.json({ auth: false, message: "No user exist!" });
+//       // res.send({ message: "User doesn't exist" });
+//     }
+//   });
+// });
 
 function sendEmail(email, token, USER_ID) {
   var email = email;
@@ -1583,6 +1574,37 @@ app.post("/resetpassword/:USER_ID/:TOKEN", (req, res) => {
       });
     } else {
       console.log("go");
+    }
+  });
+});
+
+// SELECT LOGIN
+app.post("/login", (req, res) => {
+  const USERNAME = req.body.USERNAME;
+  const USER_PASSWORD = req.body.USER_PASSWORD;
+
+  const sqlInsertUser = "SELECT * FROM user WHERE USERNAME = ?;";
+  db.query(sqlInsertUser, USERNAME, (err, result) => {
+    if (err) {
+      res.send({ err: err });
+    }
+
+    if (result.length > 0) {
+      bcrypt.compare(
+        USER_PASSWORD,
+        result[0].USER_PASSWORD,
+        (error, response) => {
+          if (response) {
+            res.send({ message: "You're Logged In!", result: result });
+          } else {
+            res.send({
+              message: "Wrong username and password combination",
+            });
+          }
+        }
+      );
+    } else {
+      res.send({ message: "User doesn't exist" });
     }
   });
 });
