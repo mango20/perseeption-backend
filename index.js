@@ -122,6 +122,57 @@ cloudinary.config({
   secure: true,
 });
 
+app.post("/api/uploadImageAnnouncement", async (req, res) => {
+  try {
+    const fileStr = req.body.data;
+    const ANNOUNCEMENT_TITLE = req.body.ANNOUNCEMENT_TITLE;
+    const ANNOUNCEMENT_CONTENT = req.body.ANNOUNCEMENT_CONTENT;
+    // const fileStr = req.body.data;
+
+    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "announcementImage",
+    });
+    console.log(uploadedResponse);
+    const url = uploadedResponse.public_id;
+    res.send({ mgs: "ehgfhsgehfe" });
+    const sql =
+      "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE,ANNOUNCEMENT_CONTENT, ANNOUNCEMENT_IMAGE ) VALUES (?,?,?)";
+    db.query(
+      sql,
+      [ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT, url],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(results);
+        }
+      }
+    );
+    console.log(fileStr);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/api/imagesAnnouncement", async (req, res) => {
+  // const { resources } = await cloudinary.search
+  //   .expression("folder:eventImage")
+  //   .sort_by("public_id", "desc")
+  //   .max_results(30)
+  //   .execute();
+  // const publicIds = resources.map((file) => file.public_id);
+  // res.send(publicIds);
+  const sqlGet = "SELECT * FROM admin_announcement";
+
+  db.query(sqlGet, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result);
+      res.send(result);
+    }
+  });
+});
 // cloudinary.uploader.upload(
 //   "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
 //   { public_id: "olympic_flag" },
