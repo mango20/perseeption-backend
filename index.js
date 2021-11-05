@@ -149,7 +149,7 @@ app.post("/api/uploadImageAnnouncement", async (req, res) => {
         }
       }
     );
-    console.log(fileStr);
+    // console.log(fileStr);
   } catch (error) {
     console.log(error);
   }
