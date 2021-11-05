@@ -91,15 +91,15 @@ const db = mysql.createPool({
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(
-  session({
-    key: "USER_ID",
-    secret: "pavicOrg", //organization
-    resave: false,
-    saveUninitialized: false,
-    cookie: { expires: 60 * 60 * 24 },
-  })
-);
+// app.use(
+//   session({
+//     key: "USER_ID",
+//     secret: "pavicOrg", //organization
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { expires: 60 * 60 * 24 },
+//   })
+// );
 
 // app.options("*", cors());
 // app.use(function (req, res, next) {
@@ -650,15 +650,27 @@ app.post("/insertContactUsMsg", (req, res) => {
 
 //------
 
+// app.post("/insertForum", (req, res) => {
+//   const FORUM_TITLE = req.body.FORUM_TITLE;
+//   const FORUM_CONTENT = req.body.FORUM_CONTENT;
+//   // const USER_ID = req.body.USER_ID;
+
+//   const sqlInsert =
+//     // "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT) VALUES (?,?)";
+//     "INSERT INTO  forum_content (FORUM_TITLE, FORUM_CONTENT) VALUES (?,?)";
+//   db.query(sqlInsert, [FORUM_TITLE, FORUM_CONTENT], (err, result) => {
+//     res.send(result);
+//   });
+// });
+
 app.post("/insertForum", (req, res) => {
   const FORUM_TITLE = req.body.FORUM_TITLE;
   const FORUM_CONTENT = req.body.FORUM_CONTENT;
-  // const USER_ID = req.body.USER_ID;
-
+  const USER_ID = req.body.USER_ID_;
+  console.log(USER_ID);
   const sqlInsert =
-    // "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT) VALUES (?,?)";
-    "INSERT INTO  forum_content (FORUM_TITLE, FORUM_CONTENT) VALUES (?,?)";
-  db.query(sqlInsert, [FORUM_TITLE, FORUM_CONTENT], (err, result) => {
+    "INSERT INTO  forum_content (FORUM_TITLE, FORUM_CONTENT, USER_ID) VALUES (?,?, ?)";
+  db.query(sqlInsert, [FORUM_TITLE, FORUM_CONTENT, USER_ID], (err, result) => {
     res.send(result);
   });
 });
