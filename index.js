@@ -717,19 +717,43 @@ app.delete("/api/deleteQuestion/:FORUM_ID", (req, res) => {
   });
 });
 
-app.post("/insertForumReply", (req, res) => {
+// app.post("/insertForumReply", (req, res) => {
+//   // const FORUM_TITLE = req.body.FORUM_TITLE;
+//   const FORUM_REPLY_CONTENT = req.body.FORUM_REPLY_CONTENT;
+//   const FORUM_ID = req.body.FORUM_ID;
+//   console.log(FORUM_ID);
+//   // const USER_ID = req.body.USER_ID;
+
+//   const sqlInsert =
+//     // "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT) VALUES (?,?)";
+//     "INSERT INTO forum_reply (FORUM_REPLY_CONTENT, FORUM_ID) VALUES (?, (SELECT FORUM_ID FROM forum_content WHERE FORUM_ID=?))";
+//   db.query(sqlInsert, [FORUM_REPLY_CONTENT, FORUM_ID], (err, result) => {
+//     res.send(result);
+//   });
+// });
+
+app.post("/insertForumReply/:FORUM_ID", (req, res) => {
   // const FORUM_TITLE = req.body.FORUM_TITLE;
   const FORUM_REPLY_CONTENT = req.body.FORUM_REPLY_CONTENT;
-  const FORUM_ID = req.body.FORUM_ID;
-  console.log(FORUM_ID);
-  // const USER_ID = req.body.USER_ID;
-
+  console.log(FORUM_REPLY_CONTENT);
+  const FORUM_ID_ = req.params.FORUM_ID;
+  console.log(FORUM_ID_);
+  const USER_ID = req.body.USER_ID;
+  console.log(USER_ID);
   const sqlInsert =
     // "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT) VALUES (?,?)";
-    "INSERT INTO forum_reply (FORUM_REPLY_CONTENT, FORUM_ID) VALUES (?, (SELECT FORUM_ID FROM forum_content WHERE FORUM_ID=?))";
-  db.query(sqlInsert, [FORUM_REPLY_CONTENT, FORUM_ID], (err, result) => {
-    res.send(result);
-  });
+    "INSERT INTO forum_reply (FORUM_REPLY_CONTENT, FORUM_ID, USER_ID) VALUES (?, ?, ?)";
+  db.query(
+    sqlInsert,
+    [FORUM_REPLY_CONTENT, FORUM_ID_, USER_ID],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.send(result);
+      console.log(result);
+    }
+  );
 });
 
 app.get("/api/getForumReply", (req, res) => {
