@@ -128,17 +128,18 @@ app.post("/api/uploadImageAnnouncement", async (req, res) => {
     const ANNOUNCEMENT_TITLE = req.body.ANNOUNCEMENT_TITLE;
     const ANNOUNCEMENT_CONTENT = req.body.ANNOUNCEMENT_CONTENT;
     // const fileStr = req.body.data;
-
+    console.log(ANNOUNCEMENT_TITLE);
+    console.log(ANNOUNCEMENT_CONTENT);
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
       upload_preset: "announcementImage",
     });
     console.log(uploadedResponse);
     const url = uploadedResponse.public_id;
     res.send({ mgs: "ehgfhsgehfe" });
-    const sql =
-      "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE,ANNOUNCEMENT_CONTENT, ANNOUNCEMENT_IMAGE ) VALUES (?,?,?)";
+    const sql1 =
+      "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT, ANNOUNCEMENT_IMAGE ) VALUES (?,?,?)";
     db.query(
-      sql,
+      sql1,
       [ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT, url],
       (err, results) => {
         if (err) {
