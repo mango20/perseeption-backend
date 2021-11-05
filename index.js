@@ -1340,7 +1340,6 @@ app.get("/AdminList", (req, res) => {
   });
 });
 
-// VERIFY
 app.get("/login", async (req, res) => {
   if (req.session.user) {
     res.send({ loggedIn: true, user: req.session.user });
@@ -1431,11 +1430,8 @@ app.post("/login", (req, res) => {
         result[0].USER_PASSWORD,
         (error, response) => {
           if (response) {
-            // req.session.user = result;
-            // console.log(req.session.user);
-
             const USER_ID = result[0].USER_ID;
-            const token = jwt.sign({ USER_ID }, "pavicOrg", { expiresIn: 300 }); //5mins
+            const token = jwt.sign({ USER_ID }, "pavicOrg", { expiresIn: 300 }); 
 
             req.session.user = result;
 
