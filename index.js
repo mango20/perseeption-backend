@@ -541,37 +541,6 @@ app.post("/sendtoEmail", (req, res) => {
     },
   });
 
-  app.get("/getAdminInformations_/:contact_id", async (req, res) => {
-    const contact_id = req.params.contact_id;
-    console.log(contact_id);
-    const sqlGet = "SELECT * FROM contact_us WHERE contact_id = ?";
-
-    db.query(sqlGet, contact_id, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(result);
-        res.send(result);
-      }
-    });
-  });
-
-  app.delete("/deleteContactUsMsgt/:contact_id", (req, res) => {
-    const contact_id = req.params.contact_id;
-    console.log(contact_id);
-    const sqlDelete = "DELETE FROM contact_us WHERE contact_id = ?";
-
-    db.query(sqlDelete, contact_id, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(result);
-        // res.send(contact_id);
-        res.send(result);
-      }
-    });
-  });
-
   const mailOptions = {
     from: "perseeption2021@gmail.com",
     to: EmailContact,
@@ -712,6 +681,37 @@ app.delete("/api/deleteQuestion/:FORUM_ID", (req, res) => {
       console.log(err);
     } else {
       console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+app.get("/getAdminInformations_/:contact_id", async (req, res) => {
+  const contact_id = req.params.contact_id;
+  console.log(contact_id);
+  const sqlGet = "SELECT * FROM contact_us WHERE contact_id = ?";
+
+  db.query(sqlGet, contact_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+app.delete("/deleteContactUsMsgt/:contact_id", (req, res) => {
+  const contact_id = req.params.contact_id;
+  console.log(contact_id);
+  const sqlDelete = "DELETE FROM contact_us WHERE contact_id = ?";
+
+  db.query(sqlDelete, contact_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      // res.send(contact_id);
       res.send(result);
     }
   });
