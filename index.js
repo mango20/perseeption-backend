@@ -526,9 +526,9 @@ app.put("/updateAdminInformation__/:NEW_ADMIN_ID", async (req, res) => {
   const USER_ID = req.params.NEW_ADMIN_ID;
   const AdminNewdetails = {
     ADMIN_NAME: req.body.ADMIN_NAME,
-    // ADMIN_CONTACT: req.body.ADMIN_CONTACT,
+    ADMIN_CONTACT: req.body.ADMIN_CONTACT,
     ADMIN_ADDRESS: req.body.ADMIN_ADDRESS,
-    // ADMIN_EMAIL: req.body.ADMIN_EMAIL,
+    ADMIN_EMAIL: req.body.ADMIN_EMAIL,
     // USERNAME: req.body.USERNAME,
     // USER_PASSWORD: req.body.USER_PASSWORD,
   };
