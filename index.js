@@ -271,6 +271,21 @@ app.get("/countGenderFemale", (req, res) => {
   });
 });
 
+app.delete("/deleteAdmin/:USER_ID", (req, res) => {
+  const USER_ID = req.params.USER_ID;
+  console.log(USER_ID);
+  const sqlDelete = "DELETE FROM user WHERE USER_ID = ?";
+
+  db.query(sqlDelete, USER_ID, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
 const storage_AddMember = multer.diskStorage({
   destination: path.join(__dirname, "./images/", "memberGcash"),
   filename: function (req, file, cb) {
@@ -1344,6 +1359,43 @@ app.get("/getContactUsMsg/:contact_id", (req, res) => {
   const id = req.params.contact_id;
   const sqlSelect = "SELECT * FROM contact_us ORDER BY contact_id =?  DESC";
   db.query(sqlSelect, id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(err);
+      res.send(result);
+    }
+  });
+});
+
+//get info
+app.get("/getAdminInformation_/:USER_ID", (req, res) => {
+  const USER_ID = req.params.USER_ID;
+  console.log(USER_ID);
+  const sqlGet = "SELECT * FROM user WHERE USER_ID = ?";
+
+  db.query(sqlGet, USER_ID, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+app.put("/getAdminInformation_/:USER_ID", (req, res) => {
+  const USER_ID = req.body.USER_ID; // Get the Parameter
+  const ADMIN_NAME = req.body.ADMIN_NAME;
+  const USERNAME = req.body.USERNAME;
+  const USER_PASSWORD = req.body.USER_PASSWORD;
+  const ADMIN_ADDRESS = req.body.ADMIN_ADDRESS;
+  const ADMIN_CONTACT = req.body.ADMIN_CONTACT;
+  const ADMIN_EMAIL = req.body.ADMIN_EMAIL;
+  console.log(USER_ID);
+  // const ADMIN_NAME = req.body.ADMIN_NAME;
+  const sqlUpdateInfo = "UPDATE user SET USERNAME = ?  WHERE USER_ID = ?";
+  db.query(sqlUpdateInfo, [USERNAME, USER_ID], (err, result) => {
     if (err) {
       console.log(err);
     } else {
