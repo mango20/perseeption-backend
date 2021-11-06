@@ -522,6 +522,28 @@ app.post("/imageupload", async (req, res) => {
   }
 });
 
+app.put("/updateAdminInformation__/:USER_ID", async (req, res) => {
+  const USER_ID = req.params.USER_ID;
+  const AdminNewdetails = {
+    ADMIN_NAME: req.body.ADMIN_NAME,
+    ADMIN_CONTACT: req.body.ADMIN_CONTACT,
+    ADMIN_ADDRESS: req.body.ADMIN_ADDRESS,
+    ADMIN_EMAIL: req.body.ADMIN_EMAIL,
+    USERNAME: req.body.USERNAME,
+    USER_PASSWORD: req.body.USER_PASSWORD,
+  };
+
+  console.log(AdminNewdetails);
+  const sql = "UPDATE user SET ? WHERE USER_ID = ?";
+  db.query(sql, [AdminNewdetails, USER_ID], (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(results);
+    }
+  });
+});
+
 app.post("/api/insertAnnouncement", (req, res) => {
   const ANNOUNCEMENT_TITLE = req.body.ANNOUNCEMENT_TITLE;
   const ANNOUNCEMENT_CONTENT = req.body.ANNOUNCEMENT_CONTENT;
