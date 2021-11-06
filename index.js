@@ -522,7 +522,7 @@ app.post("/imageupload", async (req, res) => {
   }
 });
 
-app.put("/updateAdminInformation__/:USER_ID", async (req, res) => {
+app.put("/updateAdminInformation__/:NEW_ADMIN_ID", async (req, res) => {
   const USER_ID = req.params.USER_ID;
   const AdminNewdetails = {
     ADMIN_NAME: req.body.ADMIN_NAME,
