@@ -210,13 +210,6 @@ app.post("/api/upload", async (req, res) => {
 });
 
 app.get("/api/imagesEvent", async (req, res) => {
-  // const { resources } = await cloudinary.search
-  //   .expression("folder:eventImage")
-  //   .sort_by("public_id", "desc")
-  //   .max_results(30)
-  //   .execute();
-  // const publicIds = resources.map((file) => file.public_id);
-  // res.send(publicIds);
   const sqlGet = "SELECT * FROM admin_events";
 
   db.query(sqlGet, (err, result) => {
