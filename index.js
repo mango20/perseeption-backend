@@ -209,7 +209,7 @@ app.post("/api/upload", async (req, res) => {
   }
 });
 
-app.get("/api/imagesEvent", async (req, res) => {
+app.get("/api/imagesEvent", (req, res) => {
   const sqlGet = "SELECT * FROM admin_events";
 
   db.query(sqlGet, (err, result) => {
