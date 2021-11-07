@@ -998,171 +998,187 @@ app.put("/api/updateEventTitle", (req, res) => {
 });
 
 // INSERT REGISTRATION FORM
-app.post("/register", (req, res) => {
-  const USERNAME = req.body.USERNAME;
-  const USER_PASSWORD = req.body.USER_PASSWORD;
+app.post("/register", async (req, res) => {
+  try {
+    const fileStr = req.body.data;
+    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "gcashImg",
+    });
 
-  const CHILD_SURNAME = req.body.CHILD_SURNAME;
-  const CHILD_GIVEN_NAME = req.body.CHILD_GIVEN_NAME;
-  const CHILD_MIDDLE_NAME = req.body.CHILD_MIDDLE_NAME;
+    const url = uploadedResponse.public_id;
+    
+    const USERNAME = req.body.USERNAME;
+    const USER_PASSWORD = req.body.USER_PASSWORD;
 
-  const FATHER_SURNAME = req.body.FATHER_SURNAME;
-  const FATHER_GIVEN_NAME = req.body.FATHER_GIVEN_NAME;
-  const FATHER_MIDDLE_NAME = req.body.FATHER_MIDDLE_NAME;
-  const FATHER_BIRTHDAY = req.body.FATHER_BIRTHDAY;
-  //
-  console.log(FATHER_BIRTHDAY);
-  const MOTHER_SURNAME = req.body.MOTHER_SURNAME;
-  const MOTHER_GIVEN_NAME = req.body.MOTHER_GIVEN_NAME;
-  const MOTHER_MIDDLE_NAME = req.body.MOTHER_MIDDLE_NAME;
-  const MOTHER_BIRTHDAY = req.body.MOTHER_BIRTHDAY;
-  //
+    const CHILD_SURNAME = req.body.CHILD_SURNAME;
+    const CHILD_GIVEN_NAME = req.body.CHILD_GIVEN_NAME;
+    const CHILD_MIDDLE_NAME = req.body.CHILD_MIDDLE_NAME;
 
-  const GUARDIAN_SURNAME = req.body.GUARDIAN_SURNAME;
-  const GUARDIAN_GIVEN_NAME = req.body.GUARDIAN_GIVEN_NAME;
-  const GUARDIAN_MIDDLE_NAME = req.body.GUARDIAN_MIDDLE_NAME;
-  const GUARDIAN_CONTACT = req.body.GUARDIAN_CONTACT;
-  //
+    const FATHER_SURNAME = req.body.FATHER_SURNAME;
+    const FATHER_GIVEN_NAME = req.body.FATHER_GIVEN_NAME;
+    const FATHER_MIDDLE_NAME = req.body.FATHER_MIDDLE_NAME;
+    const FATHER_BIRTHDAY = req.body.FATHER_BIRTHDAY;
+    //
+    console.log(FATHER_BIRTHDAY);
+    const MOTHER_SURNAME = req.body.MOTHER_SURNAME;
+    const MOTHER_GIVEN_NAME = req.body.MOTHER_GIVEN_NAME;
+    const MOTHER_MIDDLE_NAME = req.body.MOTHER_MIDDLE_NAME;
+    const MOTHER_BIRTHDAY = req.body.MOTHER_BIRTHDAY;
+    //
 
-  const FIRST_SIBLING = req.body.FIRST_SIBLING;
-  const SECOND_SIBLING = req.body.SECOND_SIBLING;
-  const THIRD_SIBLING = req.body.THIRD_SIBLING;
+    const GUARDIAN_SURNAME = req.body.GUARDIAN_SURNAME;
+    const GUARDIAN_GIVEN_NAME = req.body.GUARDIAN_GIVEN_NAME;
+    const GUARDIAN_MIDDLE_NAME = req.body.GUARDIAN_MIDDLE_NAME;
+    const GUARDIAN_CONTACT = req.body.GUARDIAN_CONTACT;
+    //
 
-  const CITY_ADDRESS = req.body.CITY_ADDRESS;
-  const REGION_ADDRESS = req.body.REGION_ADDRESS;
-  const PROVINCE_ADDRESS = req.body.PROVINCE_ADDRESS;
+    const FIRST_SIBLING = req.body.FIRST_SIBLING;
+    const SECOND_SIBLING = req.body.SECOND_SIBLING;
+    const THIRD_SIBLING = req.body.THIRD_SIBLING;
 
-  const FATHER_CONTACT = req.body.FATHER_CONTACT;
-  const MOTHER_CONTACT = req.body.MOTHER_CONTACT;
-  const FATHER_LANDLINE = req.body.FATHER_LANDLINE;
-  const MOTHER_LANDLINE = req.body.MOTHER_LANDLINE;
-  const FATHER_EMAIL = req.body.FATHER_EMAIL;
-  const MOTHER_EMAIL = req.body.MOTHER_EMAIL;
+    const CITY_ADDRESS = req.body.CITY_ADDRESS;
+    const REGION_ADDRESS = req.body.REGION_ADDRESS;
+    const PROVINCE_ADDRESS = req.body.PROVINCE_ADDRESS;
 
-  const MONTHLY_INCOME = req.body.MONTHLY_INCOME;
+    const FATHER_CONTACT = req.body.FATHER_CONTACT;
+    const MOTHER_CONTACT = req.body.MOTHER_CONTACT;
+    const FATHER_LANDLINE = req.body.FATHER_LANDLINE;
+    const MOTHER_LANDLINE = req.body.MOTHER_LANDLINE;
+    const FATHER_EMAIL = req.body.FATHER_EMAIL;
+    const MOTHER_EMAIL = req.body.MOTHER_EMAIL;
 
-  const FATHER_OCCUPATION = req.body.FATHER_OCCUPATION;
-  const MOTHER_OCCUPATION = req.body.MOTHER_OCCUPATION;
+    const MONTHLY_INCOME = req.body.MONTHLY_INCOME;
 
-  const CHILD_BIRTHDAY = req.body.CHILD_BIRTHDAY;
-  const SEX = req.body.SEX;
+    const FATHER_OCCUPATION = req.body.FATHER_OCCUPATION;
+    const MOTHER_OCCUPATION = req.body.MOTHER_OCCUPATION;
 
-  const SCHOOL_NAME = req.body.SCHOOL_NAME;
-  const YEAR_GRADE_LEVEL = req.body.YEAR_GRADE_LEVEL;
-  const SCHOOL_ADDRESS = req.body.SCHOOL_ADDRESS;
+    const CHILD_BIRTHDAY = req.body.CHILD_BIRTHDAY;
+    const SEX = req.body.SEX;
 
-  const CAUSE_OF_BLINDNESS = req.body.CAUSE_OF_BLINDNESS;
+    const SCHOOL_NAME = req.body.SCHOOL_NAME;
+    const YEAR_GRADE_LEVEL = req.body.YEAR_GRADE_LEVEL;
+    const SCHOOL_ADDRESS = req.body.SCHOOL_ADDRESS;
 
-  const TOTALY_BLIND_EYES = req.body.TOTALY_BLIND_EYES;
-  const TB_ADD_DISABILITY = req.body.TB_ADD_DISABILITY;
-  const LOW_VISION_EYES = req.body.LOW_VISION_EYES;
-  const LV_ADD_DISABILITY = req.body.LV_ADD_DISABILITY;
+    const CAUSE_OF_BLINDNESS = req.body.CAUSE_OF_BLINDNESS;
 
-  const ADAPTIVE_LENS = req.body.ADAPTIVE_LENS;
-  const STYLUS = req.body.STYLUS;
+    const TOTALY_BLIND_EYES = req.body.TOTALY_BLIND_EYES;
+    const TB_ADD_DISABILITY = req.body.TB_ADD_DISABILITY;
+    const LOW_VISION_EYES = req.body.LOW_VISION_EYES;
+    const LV_ADD_DISABILITY = req.body.LV_ADD_DISABILITY;
 
-  const ARTIFICIAL_EYES = req.body.ARTIFICIAL_EYES;
-  const COMPUTER_SCREEN = req.body.COMPUTER_SCREEN;
+    const ADAPTIVE_LENS = req.body.ADAPTIVE_LENS;
+    const STYLUS = req.body.STYLUS;
 
-  //
-  const WHITE_CANE = req.body.WHITE_CANE;
-  const CCTV = req.body.CCTV;
+    const ARTIFICIAL_EYES = req.body.ARTIFICIAL_EYES;
+    const COMPUTER_SCREEN = req.body.COMPUTER_SCREEN;
 
-  const WHEEL_CHAIR = req.body.WHEEL_CHAIR;
-  const LARGE_PRINTS = req.body.LARGE_PRINTS;
+    //
+    const WHITE_CANE = req.body.WHITE_CANE;
+    const CCTV = req.body.CCTV;
 
-  const HEARING_AID = req.body.HEARING_AID;
-  const ABACUS = req.body.ABACUS;
+    const WHEEL_CHAIR = req.body.WHEEL_CHAIR;
+    const LARGE_PRINTS = req.body.LARGE_PRINTS;
 
-  const BRAILLER = req.body.BRAILLER;
+    const HEARING_AID = req.body.HEARING_AID;
+    const ABACUS = req.body.ABACUS;
 
-  const PHYSICAL_THERAPHY = req.body.PHYSICAL_THERAPHY;
-  const OCCUPATIONAL_THERAPHY = req.body.OCCUPATIONAL_THERAPHY;
-  const SPEECH_THERAPHY = req.body.SPEECH_THERAPHY;
+    const BRAILLER = req.body.BRAILLER;
 
-  const OTHER_CONDITION = req.body.OTHER_CONDITION;
+    const PHYSICAL_THERAPHY = req.body.PHYSICAL_THERAPHY;
+    const OCCUPATIONAL_THERAPHY = req.body.OCCUPATIONAL_THERAPHY;
+    const SPEECH_THERAPHY = req.body.SPEECH_THERAPHY;
 
-  const USER_REQUEST = "Pending";
-  const USER_TYPE = "Member";
-  console.log(OTHER_CONDITION);
-  // HASH PASSWORD
-  bcrypt.hash(USER_PASSWORD, saltRounds, (err, hash) => {
-    if (err) {
-      console.log(err);
-    }
+    const OTHER_CONDITION = req.body.OTHER_CONDITION;
 
-    const sqlInsertUser =
-      "INSERT INTO user (USERNAME, USER_PASSWORD, CHILD_SURNAME, CHILD_GIVEN_NAME, CHILD_MIDDLE_NAME, FATHER_SURNAME, FATHER_GIVEN_NAME, FATHER_MIDDLE_NAME, FATHER_BIRTHDAY, MOTHER_SURNAME, MOTHER_GIVEN_NAME, MOTHER_MIDDLE_NAME, MOTHER_BIRTHDAY, GUARDIAN_SURNAME, GUARDIAN_GIVEN_NAME,GUARDIAN_MIDDLE_NAME, GUARDIAN_CONTACT, FIRST_SIBLING, SECOND_SIBLING, THIRD_SIBLING, CITY_ADDRESS, REGION_ADDRESS, PROVINCE_ADDRESS, FATHER_CONTACT, MOTHER_CONTACT, FATHER_LANDLINE, MOTHER_LANDLINE, FATHER_EMAIL, MOTHER_EMAIL, MONTHLY_INCOME, FATHER_OCCUPATION, MOTHER_OCCUPATION , CHILD_BIRTHDAY, SEX, SCHOOL_NAME, YEAR_GRADE_LEVEL, SCHOOL_ADDRESS, CAUSE_OF_BLINDNESS, TOTALY_BLIND_EYES, TB_ADD_DISABILITY, LOW_VISION_EYES, LV_ADD_DISABILITY, ADAPTIVE_LENS, STYLUS, ARTIFICIAL_EYES, COMPUTER_SCREEN, WHITE_CANE, CCTV, WHEEL_CHAIR, LARGE_PRINTS, HEARING_AID, ABACUS, BRAILLER, PHYSICAL_THERAPHY, OCCUPATIONAL_THERAPHY, SPEECH_THERAPHY, OTHER_CONDITION, USER_REQUEST, USER_TYPE)" +
-      "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    db.query(
-      sqlInsertUser,
-      [
-        USERNAME,
-        hash,
-        CHILD_SURNAME,
-        CHILD_GIVEN_NAME,
-        CHILD_MIDDLE_NAME,
-        FATHER_SURNAME,
-        FATHER_GIVEN_NAME,
-        FATHER_MIDDLE_NAME,
-        FATHER_BIRTHDAY,
-        MOTHER_SURNAME,
-        MOTHER_GIVEN_NAME,
-        MOTHER_MIDDLE_NAME,
-        MOTHER_BIRTHDAY,
-        GUARDIAN_SURNAME,
-        GUARDIAN_GIVEN_NAME,
-        GUARDIAN_MIDDLE_NAME,
-        GUARDIAN_CONTACT,
-        FIRST_SIBLING,
-        SECOND_SIBLING,
-        THIRD_SIBLING,
-        CITY_ADDRESS,
-        REGION_ADDRESS,
-        PROVINCE_ADDRESS,
-        FATHER_CONTACT,
-        MOTHER_CONTACT,
-        FATHER_LANDLINE,
-        MOTHER_LANDLINE,
-        FATHER_EMAIL,
-        MOTHER_EMAIL,
-        MONTHLY_INCOME,
-        FATHER_OCCUPATION,
-        MOTHER_OCCUPATION,
-        CHILD_BIRTHDAY,
-        SEX,
-        SCHOOL_NAME,
-        YEAR_GRADE_LEVEL,
-        SCHOOL_ADDRESS,
-        CAUSE_OF_BLINDNESS,
-        TOTALY_BLIND_EYES,
-        TB_ADD_DISABILITY,
-        LOW_VISION_EYES,
-        LV_ADD_DISABILITY,
-        ADAPTIVE_LENS,
-        STYLUS,
-        ARTIFICIAL_EYES,
-        COMPUTER_SCREEN,
-        WHITE_CANE,
-        CCTV,
-        WHEEL_CHAIR,
-        LARGE_PRINTS,
-        HEARING_AID,
-        ABACUS,
-        BRAILLER,
-        PHYSICAL_THERAPHY,
-        OCCUPATIONAL_THERAPHY,
-        SPEECH_THERAPHY,
-        OTHER_CONDITION,
-        USER_REQUEST,
-        USER_TYPE,
-      ],
-      (err, result) => {
-        res.send(err);
+    const USER_REQUEST = "Pending";
+    const USER_TYPE = "Member";
+    console.log(OTHER_CONDITION);
+    // HASH PASSWORD
+    bcrypt.hash(USER_PASSWORD, saltRounds, (err, hash) => {
+      if (err) {
+        console.log(err);
       }
-    );
-    // }
-  });
+
+      const sqlInsertUser =
+        "INSERT INTO user (USERNAME, USER_PASSWORD, CHILD_SURNAME, CHILD_GIVEN_NAME, CHILD_MIDDLE_NAME, FATHER_SURNAME, FATHER_GIVEN_NAME, FATHER_MIDDLE_NAME, FATHER_BIRTHDAY, MOTHER_SURNAME, MOTHER_GIVEN_NAME, MOTHER_MIDDLE_NAME, MOTHER_BIRTHDAY, GUARDIAN_SURNAME, GUARDIAN_GIVEN_NAME,GUARDIAN_MIDDLE_NAME, GUARDIAN_CONTACT, FIRST_SIBLING, SECOND_SIBLING, THIRD_SIBLING, CITY_ADDRESS, REGION_ADDRESS, PROVINCE_ADDRESS, FATHER_CONTACT, MOTHER_CONTACT, FATHER_LANDLINE, MOTHER_LANDLINE, FATHER_EMAIL, MOTHER_EMAIL, MONTHLY_INCOME, FATHER_OCCUPATION, MOTHER_OCCUPATION , CHILD_BIRTHDAY, SEX, SCHOOL_NAME, YEAR_GRADE_LEVEL, SCHOOL_ADDRESS, CAUSE_OF_BLINDNESS, TOTALY_BLIND_EYES, TB_ADD_DISABILITY, LOW_VISION_EYES, LV_ADD_DISABILITY, ADAPTIVE_LENS, STYLUS, ARTIFICIAL_EYES, COMPUTER_SCREEN, WHITE_CANE, CCTV, WHEEL_CHAIR, LARGE_PRINTS, HEARING_AID, ABACUS, BRAILLER, PHYSICAL_THERAPHY, OCCUPATIONAL_THERAPHY, SPEECH_THERAPHY, OTHER_CONDITION, USER_REQUEST, USER_TYPE, GCASH_IMAGE)" +
+        "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      db.query(
+        sqlInsertUser,
+        [
+          USERNAME,
+          hash,
+          CHILD_SURNAME,
+          CHILD_GIVEN_NAME,
+          CHILD_MIDDLE_NAME,
+          FATHER_SURNAME,
+          FATHER_GIVEN_NAME,
+          FATHER_MIDDLE_NAME,
+          FATHER_BIRTHDAY,
+          MOTHER_SURNAME,
+          MOTHER_GIVEN_NAME,
+          MOTHER_MIDDLE_NAME,
+          MOTHER_BIRTHDAY,
+          GUARDIAN_SURNAME,
+          GUARDIAN_GIVEN_NAME,
+          GUARDIAN_MIDDLE_NAME,
+          GUARDIAN_CONTACT,
+          FIRST_SIBLING,
+          SECOND_SIBLING,
+          THIRD_SIBLING,
+          CITY_ADDRESS,
+          REGION_ADDRESS,
+          PROVINCE_ADDRESS,
+          FATHER_CONTACT,
+          MOTHER_CONTACT,
+          FATHER_LANDLINE,
+          MOTHER_LANDLINE,
+          FATHER_EMAIL,
+          MOTHER_EMAIL,
+          MONTHLY_INCOME,
+          FATHER_OCCUPATION,
+          MOTHER_OCCUPATION,
+          CHILD_BIRTHDAY,
+          SEX,
+          SCHOOL_NAME,
+          YEAR_GRADE_LEVEL,
+          SCHOOL_ADDRESS,
+          CAUSE_OF_BLINDNESS,
+          TOTALY_BLIND_EYES,
+          TB_ADD_DISABILITY,
+          LOW_VISION_EYES,
+          LV_ADD_DISABILITY,
+          ADAPTIVE_LENS,
+          STYLUS,
+          ARTIFICIAL_EYES,
+          COMPUTER_SCREEN,
+          WHITE_CANE,
+          CCTV,
+          WHEEL_CHAIR,
+          LARGE_PRINTS,
+          HEARING_AID,
+          ABACUS,
+          BRAILLER,
+          PHYSICAL_THERAPHY,
+          OCCUPATIONAL_THERAPHY,
+          SPEECH_THERAPHY,
+          OTHER_CONDITION,
+          USER_REQUEST,
+          USER_TYPE,
+          url,
+        ],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.json({ result: result });
+          }
+        }
+      );
+      // }
+    });
+  } catch (error) {
+    res.status(500).json({ err: "Something went wrong" });
+  }
 });
 
 app.get("/api/getLastMember", (req, res) => {
