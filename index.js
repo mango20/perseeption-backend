@@ -875,7 +875,7 @@ app.get("/api/getForumReply_/:FORUM_ID", (req, res) => {
     } else {
       // console.log(err);
       res.send(result);
-      console.log(result);
+      // console.log(result);
     }
   });
 });
