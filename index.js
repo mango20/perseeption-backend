@@ -36,9 +36,9 @@ const fileupload = require("express-fileupload");
 //   password: "We1*|Ber#J!<",
 //   database: "perseeption_db-36352871",
 // });
-app.use(express.static("public"));
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+// app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors());
 
 // app.all("*", function (req, res, next) {
