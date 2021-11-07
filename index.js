@@ -181,7 +181,7 @@ app.get("/api/imagesAnnouncement", async (req, res) => {
 //   }
 // );
 
-app.post("/api/upload", async (req, res) => {
+app.post("/api/upload", (req, res) => {
   try {
     const fileStr = req.body.data;
     const EVENT_TITLE = req.body.EVENT_TITLE;
@@ -897,7 +897,7 @@ app.put("/api/updateAnnouncementTitle", (req, res) => {
 });
 
 // -------------------Events----------------
-app.get("/api/getEvent", async (req, res) => {
+app.get("/api/getEvent", (req, res) => {
   const sqlSelect = "SELECT * FROM admin_events ORDER BY EVENT_ID DESC";
   db.query(sqlSelect, (err, result) => {
     if (err) {
