@@ -940,7 +940,7 @@ app.post("/api/insertEvents", (req, res) => {
   const USER_ID = req.body.USER_ID;
   console.log(EVENT_TITLE);
   console.log(EVENT_CONTENT);
-  console.log(USER_ID);
+  // console.log(USER_ID);
   const sqlInsert =
     // "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT) VALUES (?,?)";
     "INSERT INTO admin_events (EVENT_TITLE, EVENT_CONTENT, USER_ID) VALUES (?,?, (SELECT USER_ID FROM user WHERE USER_ID=?))";
