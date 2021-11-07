@@ -897,7 +897,7 @@ app.put("/api/updateAnnouncementTitle", (req, res) => {
 });
 
 // -------------------Events----------------
-app.get("/api/getEvent", (req, res) => {
+app.get("/api/getEvent", async (req, res) => {
   const sqlSelect = "SELECT * FROM admin_events ORDER BY EVENT_ID DESC";
   db.query(sqlSelect, (err, result) => {
     if (err) {
