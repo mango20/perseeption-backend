@@ -43,7 +43,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(
   cors({
     origin: true,
-    methods: ["GET", "POST", "DELETE", "PUT", "HEAD", "OPTIONS"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
 );
@@ -144,13 +144,13 @@ app.post("/api/uploadImageAnnouncement", async (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          res.send(results);
+          res.json({ result: results });
         }
       }
     );
     // console.log(fileStr);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ err: "Something went wrong" });
   }
 });
 
@@ -193,19 +193,19 @@ app.post("/api/upload", async (req, res) => {
     });
     // console.log(uploadedResponse);
     const url = uploadedResponse.public_id;
-    res.send({ mgs: "ehgfhsgehfe" });
+    // res.send({ mgs: "ehgfhsgehfe" });
     const sql =
       "INSERT INTO admin_events (EVENT_TITLE,EVENT_CONTENT, EVENT_IMAGE ) VALUES (?,?,?)";
     db.query(sql, [EVENT_TITLE, EVENT_CONTENT, url], (err, results) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(results);
+        res.json({ result: results });
       }
     });
-    console.log(fileStr);
+    // console.log(fileStr);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ err: "Something went wrong" });
   }
 });
 
