@@ -221,35 +221,6 @@ app.get("/api/imagesEvent", (req, res) => {
     }
   });
 });
-const storage_e_ = multer.diskStorage({
-  fileFilter: function (req, file, cb) {
-    let ext = path.extname(file.originalname);
-    if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
-      cb(new Error("File type is not supported"), false);
-      return;
-    }
-    cb(null, true);
-  },
-});
-// const path = require("path");
-
-app.post("/uploadEvent_Admin", (req, res) => {
-  const EVENT_TITLE = req.body.EVENT_TITLE;
-  const EVENT_CONTENT = req.body.EVENT_CONTENT;
-  const EVENT_IMAGE = req.body.fileName;
-
-  const sqlInsert =
-    // "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT) VALUES (?,?)";
-    "INSERT INTO  admin_events (EVENT_TITLE, EVENT_CONTENT, EVENT_IMAGE) VALUES (?,?, ?)";
-  db.query(
-    sqlInsert,
-    [EVENT_TITLE, EVENT_CONTENT, EVENT_IMAGE],
-    (err, result) => {
-      res.send(result);
-      // console.log(result);
-    }
-  );
-});
 
 app.get("/countGenderFemale", (req, res) => {
   const sqlSelect =
@@ -279,119 +250,119 @@ app.delete("/deleteAdmin/:USER_ID", (req, res) => {
   });
 });
 
-const storage_AddMember = multer.diskStorage({
-  destination: path.join(__dirname, "./images/", "memberGcash"),
-  filename: function (req, file, cb) {
-    // null as first argument means no error
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
+// const storage_AddMember = multer.diskStorage({
+//   destination: path.join(__dirname, "./images/", "memberGcash"),
+//   filename: function (req, file, cb) {
+//     // null as first argument means no error
+//     cb(null, Date.now() + "-" + file.originalname);
+//   },
+// });
 
-app.post("/uploadGCash", async (req, res) => {
-  try {
-    // 'avatar' is the name of our file input field in the HTML form
+// app.post("/uploadGCash", async (req, res) => {
+//   try {
+//     // 'avatar' is the name of our file input field in the HTML form
 
-    let upload = multer({ storage: storage_AddMember }).single("image");
+//     let upload = multer({ storage: storage_AddMember }).single("image");
 
-    upload(req, res, async function (err) {
-      // req.file contains information of uploaded file
-      // req.body contains information of text fields
+//     upload(req, res, async function (err) {
+//       // req.file contains information of uploaded file
+//       // req.body contains information of text fields
 
-      if (!req.file) {
-        return res.send("Please select an image to upload");
-      } else if (err instanceof multer.MulterError) {
-        return res.send(err);
-      } else if (err) {
-        return res.send(err);
-      }
-      // console.log(req);
-      console.log(req.body.USER_PASSWORD);
-      const p = req.body.USER_PASSWORD;
-      const bcrypt_pass = await bcrypt.hash(p, saltRounds);
-      const event_details = {
-        USERNAME: req.body.USERNAME,
-        USER_PASSWORD: bcrypt_pass,
+//       if (!req.file) {
+//         return res.send("Please select an image to upload");
+//       } else if (err instanceof multer.MulterError) {
+//         return res.send(err);
+//       } else if (err) {
+//         return res.send(err);
+//       }
+//       // console.log(req);
+//       console.log(req.body.USER_PASSWORD);
+//       const p = req.body.USER_PASSWORD;
+//       const bcrypt_pass = await bcrypt.hash(p, saltRounds);
+//       const event_details = {
+//         USERNAME: req.body.USERNAME,
+//         USER_PASSWORD: bcrypt_pass,
 
-        CHILD_SURNAME: req.body.CHILD_SURNAME,
-        CHILD_GIVEN_NAME: req.body.CHILD_GIVEN_NAME,
-        CHILD_MIDDLE_NAME: req.body.CHILD_MIDDLE_NAME,
+//         CHILD_SURNAME: req.body.CHILD_SURNAME,
+//         CHILD_GIVEN_NAME: req.body.CHILD_GIVEN_NAME,
+//         CHILD_MIDDLE_NAME: req.body.CHILD_MIDDLE_NAME,
 
-        FATHER_SURNAME: req.body.FATHER_SURNAME,
-        FATHER_GIVEN_NAME: req.body.FATHER_GIVEN_NAME,
-        FATHER_MIDDLE_NAME: req.body.FATHER_MIDDLE_NAME,
+//         FATHER_SURNAME: req.body.FATHER_SURNAME,
+//         FATHER_GIVEN_NAME: req.body.FATHER_GIVEN_NAME,
+//         FATHER_MIDDLE_NAME: req.body.FATHER_MIDDLE_NAME,
 
-        FATHER_CONTACT: req.body.FATHER_CONTACT,
-        FATHER_EMAIL: req.body.FATHER_EMAIL,
-        FATHER_BIRTHDAY: req.body.FATHER_BIRTHDAY,
-        FATHER_OCCUPATION: req.body.FATHER_OCCUPATION,
+//         FATHER_CONTACT: req.body.FATHER_CONTACT,
+//         FATHER_EMAIL: req.body.FATHER_EMAIL,
+//         FATHER_BIRTHDAY: req.body.FATHER_BIRTHDAY,
+//         FATHER_OCCUPATION: req.body.FATHER_OCCUPATION,
 
-        MOTHER_SURNAME: req.body.MOTHER_SURNAME,
-        MOTHER_GIVEN_NAME: req.body.MOTHER_GIVEN_NAME,
-        MOTHER_MIDDLE_NAME: req.body.MOTHER_MIDDLE_NAME,
+//         MOTHER_SURNAME: req.body.MOTHER_SURNAME,
+//         MOTHER_GIVEN_NAME: req.body.MOTHER_GIVEN_NAME,
+//         MOTHER_MIDDLE_NAME: req.body.MOTHER_MIDDLE_NAME,
 
-        MOTHER_CONTACT: req.body.MOTHER_CONTACT,
-        MOTHER_EMAIL: req.body.MOTHER_EMAIL,
-        MOTHER_BIRTHDAY: req.body.MOTHER_BIRTHDAY,
-        MOTHER_OCCUPATION: req.body.MOTHER_OCCUPATION,
+//         MOTHER_CONTACT: req.body.MOTHER_CONTACT,
+//         MOTHER_EMAIL: req.body.MOTHER_EMAIL,
+//         MOTHER_BIRTHDAY: req.body.MOTHER_BIRTHDAY,
+//         MOTHER_OCCUPATION: req.body.MOTHER_OCCUPATION,
 
-        //
-        GUARDIAN_SURNAME: req.body.GUARDIAN_SURNAME,
-        GUARDIAN_GIVEN_NAME: req.body.GUARDIAN_GIVEN_NAME,
-        GUARDIAN_MIDDLE_NAME: req.body.GUARDIAN_MIDDLE_NAME,
-        GUARDIAN_CONTACT: req.body.GUARDIAN_CONTACT,
+//         //
+//         GUARDIAN_SURNAME: req.body.GUARDIAN_SURNAME,
+//         GUARDIAN_GIVEN_NAME: req.body.GUARDIAN_GIVEN_NAME,
+//         GUARDIAN_MIDDLE_NAME: req.body.GUARDIAN_MIDDLE_NAME,
+//         GUARDIAN_CONTACT: req.body.GUARDIAN_CONTACT,
 
-        MOTHER_LANDLINE: req.body.MOTHER_LANDLINE,
-        FATHER_LANDLINE: req.body.FATHER_LANDLINE,
+//         MOTHER_LANDLINE: req.body.MOTHER_LANDLINE,
+//         FATHER_LANDLINE: req.body.FATHER_LANDLINE,
 
-        FIRST_SIBLING: req.body.FIRST_SIBLING,
-        SECOND_SIBLING: req.body.SECOND_SIBLING,
-        THIRD_SIBLING: req.body.THIRD_SIBLING,
+//         FIRST_SIBLING: req.body.FIRST_SIBLING,
+//         SECOND_SIBLING: req.body.SECOND_SIBLING,
+//         THIRD_SIBLING: req.body.THIRD_SIBLING,
 
-        CITY_ADDRESS: req.body.CITY_ADDRESS,
-        REGION_ADDRESS: req.body.REGION_ADDRESS,
-        PROVINCE_ADDRESS: req.body.PROVINCE_ADDRESS,
+//         CITY_ADDRESS: req.body.CITY_ADDRESS,
+//         REGION_ADDRESS: req.body.REGION_ADDRESS,
+//         PROVINCE_ADDRESS: req.body.PROVINCE_ADDRESS,
 
-        MONTHLY_INCOME: req.body.MONTHLY_INCOME,
+//         MONTHLY_INCOME: req.body.MONTHLY_INCOME,
 
-        CHILD_BIRTHDAY: req.body.CHILD_BIRTHDAY,
-        SEX: req.body.SEX,
-        SCHOOL_NAME: req.body.SCHOOL_NAME,
-        SCHOOL_ADDRESS: req.body.SCHOOL_ADDRESS,
-        YEAR_GRADE_LEVEL: req.body.YEAR_GRADE_LEVEL,
-        CAUSE_OF_BLINDNESS: req.body.CAUSE_OF_BLINDNESS,
-        TOTALY_BLIND_EYES: req.body.TOTALY_BLIND_EYES,
-        TB_ADD_DISABILITY: req.body.TB_ADD_DISABILITY,
-        LOW_VISION_EYES: req.body.LOW_VISION_EYES,
-        LV_ADD_DISABILITY: req.body.LV_ADD_DISABILITY,
-        STYLUS: req.body.STYLUS,
-        ARTIFICIAL_EYES: req.body.ARTIFICIAL_EYES,
-        COMPUTER_SCREEN: req.body.COMPUTER_SCREEN,
-        WHITE_CANE: req.body.WHITE_CANE,
-        CCTV: req.body.CCTV,
-        WHEEL_CHAIR: req.body.WHEEL_CHAIR,
-        LARGE_PRINTS: req.body.LARGE_PRINTS,
-        HEARING_AID: req.body.HEARING_AID,
-        ABACUS: req.body.ABACUS,
-        BRAILLER: req.body.BRAILLER,
-        PHYSICAL_THERAPHY: req.body.PHYSICAL_THERAPHY,
-        OCCUPATIONAL_THERAPHY: req.body.OCCUPATIONAL_THERAPHY,
-        SPEECH_THERAPHY: req.body.SPEECH_THERAPHY,
-        OTHER_CONDITION: req.body.OTHER_CONDITION,
+//         CHILD_BIRTHDAY: req.body.CHILD_BIRTHDAY,
+//         SEX: req.body.SEX,
+//         SCHOOL_NAME: req.body.SCHOOL_NAME,
+//         SCHOOL_ADDRESS: req.body.SCHOOL_ADDRESS,
+//         YEAR_GRADE_LEVEL: req.body.YEAR_GRADE_LEVEL,
+//         CAUSE_OF_BLINDNESS: req.body.CAUSE_OF_BLINDNESS,
+//         TOTALY_BLIND_EYES: req.body.TOTALY_BLIND_EYES,
+//         TB_ADD_DISABILITY: req.body.TB_ADD_DISABILITY,
+//         LOW_VISION_EYES: req.body.LOW_VISION_EYES,
+//         LV_ADD_DISABILITY: req.body.LV_ADD_DISABILITY,
+//         STYLUS: req.body.STYLUS,
+//         ARTIFICIAL_EYES: req.body.ARTIFICIAL_EYES,
+//         COMPUTER_SCREEN: req.body.COMPUTER_SCREEN,
+//         WHITE_CANE: req.body.WHITE_CANE,
+//         CCTV: req.body.CCTV,
+//         WHEEL_CHAIR: req.body.WHEEL_CHAIR,
+//         LARGE_PRINTS: req.body.LARGE_PRINTS,
+//         HEARING_AID: req.body.HEARING_AID,
+//         ABACUS: req.body.ABACUS,
+//         BRAILLER: req.body.BRAILLER,
+//         PHYSICAL_THERAPHY: req.body.PHYSICAL_THERAPHY,
+//         OCCUPATIONAL_THERAPHY: req.body.OCCUPATIONAL_THERAPHY,
+//         SPEECH_THERAPHY: req.body.SPEECH_THERAPHY,
+//         OTHER_CONDITION: req.body.OTHER_CONDITION,
 
-        GCASH_IMAGE: "images/eventImage/" + "" + req.file.filename,
-      };
+//         GCASH_IMAGE: "images/eventImage/" + "" + req.file.filename,
+//       };
 
-      console.log(event_details);
-      const sql = "INSERT INTO user SET ?";
-      db.query(sql, event_details, (err, results) => {
-        if (err) throw err;
-        res.json({ success: 1 });
-      });
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
+//       console.log(event_details);
+//       const sql = "INSERT INTO user SET ?";
+//       db.query(sql, event_details, (err, results) => {
+//         if (err) throw err;
+//         res.json({ success: 1 });
+//       });
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 app.get("/readMoreEvent/:EVENT_ID", (req, res) => {
   const EVENT_ID = req.params.EVENT_ID;
@@ -423,97 +394,97 @@ app.get("/readMoreAnnouncement/:ANNOUNCEMENT_ID", (req, res) => {
   });
 });
 
-const storage_eventImg = multer.diskStorage({
-  destination: path.join(
-    __dirname,
-    ".../perseeption-tromagade/public/images/",
-    "eventImage"
-  ),
-  filename: function (req, file, cb) {
-    // null as first argument means no error
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
+// const storage_eventImg = multer.diskStorage({
+//   destination: path.join(
+//     __dirname,
+//     ".../perseeption-tromagade/public/images/",
+//     "eventImage"
+//   ),
+//   filename: function (req, file, cb) {
+//     // null as first argument means no error
+//     cb(null, Date.now() + "-" + file.originalname);
+//   },
+// });
 
-app.post("/uploadEvent", async (req, res) => {
-  try {
-    // 'avatar' is the name of our file input field in the HTML form
+// app.post("/uploadEvent", async (req, res) => {
+//   try {
+//     // 'avatar' is the name of our file input field in the HTML form
 
-    let upload = multer({ storage: storage_eventImg }).single("image");
+//     let upload = multer({ storage: storage_eventImg }).single("image");
 
-    upload(req, res, function (err) {
-      // req.file contains information of uploaded file
-      // req.body contains information of text fields
+//     upload(req, res, function (err) {
+//       // req.file contains information of uploaded file
+//       // req.body contains information of text fields
 
-      if (!req.file) {
-        return res.send("Please select an image to upload");
-      } else if (err instanceof multer.MulterError) {
-        return res.send(err);
-      } else if (err) {
-        return res.send(err);
-      }
-      // console.log(req);
-      const event_details = {
-        EVENT_IMAGE: "images/eventImage/" + "" + req.file.filename,
-        EVENT_TITLE: req.body.title,
-        EVENT_CONTENT: req.body.content,
-      };
+//       if (!req.file) {
+//         return res.send("Please select an image to upload");
+//       } else if (err instanceof multer.MulterError) {
+//         return res.send(err);
+//       } else if (err) {
+//         return res.send(err);
+//       }
+//       // console.log(req);
+//       const event_details = {
+//         EVENT_IMAGE: "images/eventImage/" + "" + req.file.filename,
+//         EVENT_TITLE: req.body.title,
+//         EVENT_CONTENT: req.body.content,
+//       };
 
-      console.log(event_details);
-      const sql = "INSERT INTO admin_events SET ?";
-      db.query(sql, event_details, (err, results) => {
-        if (err) throw err;
-        res.json({ success: 1 });
-      });
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
+//       console.log(event_details);
+//       const sql = "INSERT INTO admin_events SET ?";
+//       db.query(sql, event_details, (err, results) => {
+//         if (err) throw err;
+//         res.json({ success: 1 });
+//       });
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
-const storage = multer.diskStorage({
-  destination: path.join(__dirname, "./images/", "announcementImg"),
-  filename: function (req, file, cb) {
-    // null as first argument means no error
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: path.join(__dirname, "./images/", "announcementImg"),
+//   filename: function (req, file, cb) {
+//     // null as first argument means no error
+//     cb(null, Date.now() + "-" + file.originalname);
+//   },
+// });
 
-app.post("/imageupload", async (req, res) => {
-  try {
-    // 'avatar' is the name of our file input field in the HTML form
+// app.post("/imageupload", async (req, res) => {
+//   try {
+//     // 'avatar' is the name of our file input field in the HTML form
 
-    let upload = multer({ storage: storage }).single("image");
+//     let upload = multer({ storage: storage }).single("image");
 
-    upload(req, res, function (err) {
-      // req.file contains information of uploaded file
-      // req.body contains information of text fields
+//     upload(req, res, function (err) {
+//       // req.file contains information of uploaded file
+//       // req.body contains information of text fields
 
-      if (!req.file) {
-        return res.send("Please select an image to upload");
-      } else if (err instanceof multer.MulterError) {
-        return res.send(err);
-      } else if (err) {
-        return res.send(err);
-      }
-      // console.log(req);
-      const announcement_details = {
-        ANNOUNCEMENT_IMAGE: "images/announcementImg/" + "" + req.file.filename,
-        ANNOUNCEMENT_TITLE: req.body.title,
-        ANNOUNCEMENT_CONTENT: req.body.content,
-      };
+//       if (!req.file) {
+//         return res.send("Please select an image to upload");
+//       } else if (err instanceof multer.MulterError) {
+//         return res.send(err);
+//       } else if (err) {
+//         return res.send(err);
+//       }
+//       // console.log(req);
+//       const announcement_details = {
+//         ANNOUNCEMENT_IMAGE: "images/announcementImg/" + "" + req.file.filename,
+//         ANNOUNCEMENT_TITLE: req.body.title,
+//         ANNOUNCEMENT_CONTENT: req.body.content,
+//       };
 
-      console.log(announcement_details);
-      const sql = "INSERT INTO admin_announcement SET ?";
-      db.query(sql, announcement_details, (err, results) => {
-        if (err) throw err;
-        res.json({ success: 1 });
-      });
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
+//       console.log(announcement_details);
+//       const sql = "INSERT INTO admin_announcement SET ?";
+//       db.query(sql, announcement_details, (err, results) => {
+//         if (err) throw err;
+//         res.json({ success: 1 });
+//       });
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 app.put("/updateAdminInformation__/:NEW_ADMIN_ID", async (req, res) => {
   const USER_ID = req.params.NEW_ADMIN_ID;
