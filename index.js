@@ -216,7 +216,7 @@ app.get("/api/imagesEvent", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(result);
+      // console.log(result);
       res.send(result);
     }
   });
@@ -1006,7 +1006,7 @@ app.post("/register", async (req, res) => {
     });
 
     const url = uploadedResponse.public_id;
-    
+
     const USERNAME = req.body.USERNAME;
     const USER_PASSWORD = req.body.USER_PASSWORD;
 
