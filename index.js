@@ -580,42 +580,52 @@ app.post("/sendtoEmail", (req, res) => {
 });
 
 app.post("/insertNewAdmin", async (req, res) => {
-  const ADMIN_NAME = req.body.ADMIN_NAME;
-  const ADMIN_CONTACT = req.body.ADMIN_CONTACT;
-  const ADMIN_EMAIL = req.body.ADMIN_EMAIL;
-  const ADMIN_ADDRESS = req.body.ADMIN_ADDRESS;
-  const USERNAME = req.body.USERNAME;
+  try {
+    const fileStr = req.body.data;
+    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "userImage",
+    });
+    const url = uploadedResponse.public_id;
+    const ADMIN_NAME = req.body.ADMIN_NAME;
+    const ADMIN_CONTACT = req.body.ADMIN_CONTACT;
+    const ADMIN_EMAIL = req.body.ADMIN_EMAIL;
+    const ADMIN_ADDRESS = req.body.ADMIN_ADDRESS;
+    const USERNAME = req.body.USERNAME;
 
-  const p = req.body.USER_PASSWORD;
+    const p = req.body.USER_PASSWORD;
 
-  const USER_PASSWORD = await bcrypt.hash(p, saltRounds);
+    const USER_PASSWORD = await bcrypt.hash(p, saltRounds);
 
-  const USER_TYPE = "Admin";
-  const USER_REQUEST = "Approve";
+    const USER_TYPE = "Admin";
+    const USER_REQUEST = "Approve";
 
-  // const USER_ID = req.body.USER_ID;
+    // const USER_ID = req.body.USER_ID;
 
-  const sqlInsertNewAdmin =
-    // "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT) VALUES (?,?)";
-    "INSERT INTO  user (USERNAME, USER_PASSWORD, USER_REQUEST, USER_TYPE, ADMIN_NAME, ADMIN_ADDRESS, ADMIN_CONTACT, ADMIN_EMAIL, NAME, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?)";
-  db.query(
-    sqlInsertNewAdmin,
-    [
-      USERNAME,
-      USER_PASSWORD,
-      USER_REQUEST,
-      USER_TYPE,
-      ADMIN_NAME,
-      ADMIN_ADDRESS,
-      ADMIN_CONTACT,
-      ADMIN_EMAIL,
-      ADMIN_NAME,
-      ADMIN_EMAIL,
-    ],
-    (err, result) => {
-      res.send(result);
-    }
-  );
+    const sqlInsertNewAdmin =
+      // "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT) VALUES (?,?)";
+      "INSERT INTO  user (AVATAR, USERNAME, USER_PASSWORD, USER_REQUEST, USER_TYPE, ADMIN_NAME, ADMIN_ADDRESS, ADMIN_CONTACT, ADMIN_EMAIL, NAME, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+    db.query(
+      sqlInsertNewAdmin,
+      [
+        url,
+        USERNAME,
+        USER_PASSWORD,
+        USER_REQUEST,
+        USER_TYPE,
+        ADMIN_NAME,
+        ADMIN_ADDRESS,
+        ADMIN_CONTACT,
+        ADMIN_EMAIL,
+        ADMIN_NAME,
+        ADMIN_EMAIL,
+      ],
+      (err, result) => {
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ err: "Something went wrong" });
+  }
 });
 
 app.post("/insertContactUsMsg", (req, res) => {
