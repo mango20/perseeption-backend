@@ -575,7 +575,7 @@ app.post("/insertNewAdmin", async (req, res) => {
 
   const sqlInsertNewAdmin =
     // "INSERT INTO admin_announcement (ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT) VALUES (?,?)";
-    "INSERT INTO  user (USERNAME, USER_PASSWORD, USER_REQUEST, USER_TYPE, ADMIN_NAME, ADMIN_ADDRESS, ADMIN_CONTACT, ADMIN_EMAIL) VALUES (?,?,?,?,?,?,?,?)";
+    "INSERT INTO  user (USERNAME, USER_PASSWORD, USER_REQUEST, USER_TYPE, ADMIN_NAME, ADMIN_ADDRESS, ADMIN_CONTACT, ADMIN_EMAIL, NAME, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?)";
   db.query(
     sqlInsertNewAdmin,
     [
@@ -586,6 +586,8 @@ app.post("/insertNewAdmin", async (req, res) => {
       ADMIN_NAME,
       ADMIN_ADDRESS,
       ADMIN_CONTACT,
+      ADMIN_EMAIL,
+      ADMIN_NAME,
       ADMIN_EMAIL,
     ],
     (err, result) => {
@@ -1590,7 +1592,7 @@ app.post("/resetPassword", (req, resu) => {
 
     if (res.length > 0) {
       const USER_ID = res[0].USER_ID;
-      const MOTHER_EMAIL = res[0].MOTHER_EMAIL;
+      const MOTHER_EMAIL = res[0].EMAIL;
       var token = jwt.sign({ USER_ID }, "pavicOrg", { expiresIn: "1s" }); //5mins
       var sent = sendEmail(email, token, USER_ID);
       console.log(token);
