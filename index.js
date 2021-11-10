@@ -648,7 +648,8 @@ app.post("/insertForum", (req, res) => {
 });
 
 app.get("/api/getForum", (req, res) => {
-  const sqlSelect = "SELECT * FROM forum_content";
+  const sqlSelect =
+    "SELECT forum_content.*, forum_content.USER_ID, user.ADMIN_NAME FROM forum_content INNER JOIN user on forum_content.USER_ID=user.USER_ID";
   db.query(sqlSelect, (err, result) => {
     if (err) {
       // console.log(err);
