@@ -510,13 +510,13 @@ app.put("/updateAdminInformation__/:NEW_ADMIN_ID", async (req, res) => {
 
 app.put("/updateMember_Details/:USER_ID", async (req, res) => {
   const USER_ID = req.params.USER_ID;
+  const pass = req.body.USER_PASSWORD;
+  var p = await bcrypt.hash(pass, saltRounds);
   const AdminNewdetails = {
     NAME: req.body.NAME,
     EMAIL: req.body.EMAIL,
     USERNAME: req.body.USERNAME,
-    USER_PASSWORD: req.body.USER_PASSWORD,
-    // USERNAME: req.body.USERNAME,
-    // USER_PASSWORD: req.body.USER_PASSWORD,
+    USER_PASSWORD: p,
   };
 
   console.log(AdminNewdetails);
