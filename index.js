@@ -382,7 +382,8 @@ app.get("/readMoreEvent/:EVENT_ID", (req, res) => {
 app.get("/readMoreAnnouncement/:ANNOUNCEMENT_ID", (req, res) => {
   const ANNOUNCEMENT_ID = req.params.ANNOUNCEMENT_ID;
   console.log(ANNOUNCEMENT_ID);
-  const sqlGet = "SELECT * FROM admin_announcement WHERE ANNOUNCEMENT_ID = ?";
+  const sqlGet =
+    "SELECT ANNOUNCEMENT_TITLE, ANNOUNCEMENT_IMAGE, ANNOUNECMENT_CONTENT, DATE_FORMAT(ANNOUNCEMENT_DATE, '%Y-%m-%d') FROM admin_announcement WHERE ANNOUNCEMENT_ID = ?";
 
   db.query(sqlGet, ANNOUNCEMENT_ID, (err, result) => {
     if (err) {
