@@ -367,7 +367,8 @@ app.delete("/deleteAdmin/:USER_ID", (req, res) => {
 app.get("/readMoreEvent/:EVENT_ID", (req, res) => {
   const EVENT_ID = req.params.EVENT_ID;
   console.log(EVENT_ID);
-  const sqlGet = "SELECT * FROM admin_events WHERE EVENT_ID = ?";
+  const sqlGet =
+    "SELECT EVENT_TITLE, EVENT_IMAGE, EVENT_CONTENT, DATE_FORMAT(EVENT_DATE, '%Y-%m-%d') as EVENT_DATE FROM admin_events WHERE EVENT_ID = ?";
 
   db.query(sqlGet, EVENT_ID, (err, result) => {
     if (err) {
