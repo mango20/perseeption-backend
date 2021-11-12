@@ -1486,6 +1486,21 @@ app.get("/getAdminProfileInfo_/:USER_ID", (req, res) => {
   });
 });
 
+app.get("/getMemberProfileInfo_MemberSec/:USER_ID", (req, res) => {
+  const USER_ID = req.params.USER_ID;
+  console.log(USER_ID);
+  const sqlGet = "SELECT * FROM user WHERE USER_ID = ?";
+
+  db.query(sqlGet, USER_ID, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
 //get info
 app.get("/getAdminInformation_/:USER_ID", (req, res) => {
   const USER_ID = req.params.USER_ID;
