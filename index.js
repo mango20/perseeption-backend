@@ -1415,7 +1415,7 @@ app.put("/api/updateAdminInfo_/:USER_ID", async (req, res) => {
   const p = req.body.USER_PASSWORD;
   const ADMIN_INFO_PASSWORD = await bcrypt.hash(p, saltRounds);
   const AdminNewdetails = {
-    ADMIN_NAME: req.body.ADMIN_NAME,
+    NAME: req.body.NAME,
     ADMIN_CONTACT: req.body.ADMIN_CONTACT,
     ADMIN_ADDRESS: req.body.ADMIN_ADDRESS,
     ADMIN_EMAIL: req.body.ADMIN_EMAIL,
