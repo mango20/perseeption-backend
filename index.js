@@ -1410,6 +1410,45 @@ app.get("/getContactUsMsg/:contact_id", (req, res) => {
   });
 });
 
+app.put("/api/updateAdminInfo_/:USER_ID", async (req, res) => {
+  const USER_ID = req.body.USER_ID; // Get the Parameter
+  const p = req.body.ADMIN_INFO_PASSWORD;
+  const ADMIN_INFO_PASSWORD = await bcrypt.hash(p, saltRounds);
+  const AdminNewdetails = {
+    ADMIN_NAME: req.body.ADMIN_NAME,
+    ADMIN_CONTACT: req.body.ADMIN_CONTACT,
+    ADMIN_ADDRESS: req.body.ADMIN_ADDRESS,
+    ADMIN_EMAIL: req.body.ADMIN_EMAIL,
+    USER_PASSWORD: ADMIN_INFO_PASSWORD,
+  };
+
+  const sqlUpdate = "UPDATE user SET ? WHERE USER_ID = ?";
+
+  db.query(sqlUpdate, [AdminNewdetails, USER_ID], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+    }
+  });
+});
+
+app.get("/getAdminProfileInfo_/:USER_ID", (req, res) => {
+  const USER_ID = req.params.USER_ID;
+  console.log(USER_ID);
+  const sqlGet = "SELECT * FROM user WHERE USER_ID = ?";
+
+  db.query(sqlGet, USER_ID, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
 //get info
 app.get("/getAdminInformation_/:USER_ID", (req, res) => {
   const USER_ID = req.params.USER_ID;
