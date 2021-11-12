@@ -1412,7 +1412,7 @@ app.get("/getContactUsMsg/:contact_id", (req, res) => {
 
 app.put("/api/updateAdminInfo_/:USER_ID", async (req, res) => {
   const USER_ID = req.body.USER_ID; // Get the Parameter
-  const p = req.body.ADMIN_INFO_PASSWORD;
+  const p = req.body.USER_PASSWORD;
   const ADMIN_INFO_PASSWORD = await bcrypt.hash(p, saltRounds);
   const AdminNewdetails = {
     ADMIN_NAME: req.body.ADMIN_NAME,
