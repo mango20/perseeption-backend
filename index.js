@@ -1410,6 +1410,28 @@ app.get("/getContactUsMsg/:contact_id", (req, res) => {
   });
 });
 
+app.put("/api/updateMemberInfo_/:USER_ID", async (req, res) => {
+  const USER_ID = req.body.USER_ID; // Get the Parameter
+  const AdminNewdetails = {
+    NAME: req.body.NAME,
+    USERNAME: req.body.USERNAME,
+    MOTHER_EMAIL: req.body.MOTHER_EMAIL,
+    MOTHER_CONTACT: req.body.MOTHER_CONTACT,
+    CITY_ADDRESS: req.body.CITY_ADDRESS,
+  };
+
+  const sqlUpdate = "UPDATE user SET ? WHERE USER_ID = ?";
+
+  db.query(sqlUpdate, [AdminNewdetails, USER_ID], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+    }
+  });
+});
+
 app.put("/api/updateAdminInfo_/:USER_ID", async (req, res) => {
   const USER_ID = req.body.USER_ID; // Get the Parameter
   const p = req.body.USER_PASSWORD;
@@ -1430,6 +1452,21 @@ app.put("/api/updateAdminInfo_/:USER_ID", async (req, res) => {
     } else {
       res.send(result);
       console.log(result);
+    }
+  });
+});
+
+app.get("/getMemberProfileInfo_Update/:USER_ID", (req, res) => {
+  const USER_ID = req.params.USER_ID;
+  console.log(USER_ID);
+  const sqlGet = "SELECT * FROM user WHERE USER_ID = ?";
+
+  db.query(sqlGet, USER_ID, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
     }
   });
 });
