@@ -1844,7 +1844,8 @@ app.post("/login", (req, res) => {
 
 // const path = require("path");
 const PORT = process.env.PORT;
-
+// console.log(process.env.DB_HOST);
+// console.log(process.env.DB_USER);
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`); //localhost:3001
 });
