@@ -71,11 +71,11 @@ const db = mysql.createPool({
   connectTimeout: 60 * 60 * 1000,
   acquireTimeout: 60 * 60 * 1000,
   timeout: 60 * 60 * 1000,
-  host: process.env.HOST,
+  host: process.env.HOST_,
   port: process.env.DB_PORT,
-  user: process.env.USER,
+  user: process.env.USER_,
   password: process.env.DB_PASS,
-  database: process.env.DATABASE,
+  database: process.env.DATABASE_,
 });
 
 // const db = mysql.createPool({
