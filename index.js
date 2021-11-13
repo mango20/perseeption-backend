@@ -713,6 +713,20 @@ app.get("/api/getForum", (req, res) => {
   });
 });
 
+app.get("/api/getForum/:FORUM_TITLE", (req, res) => {
+  const p = req.body.FORUM_TITLE;
+  const sqlSelect =
+    "SELECT forum_content.*, forum_content.USER_ID, user.*, user.AVATAR FROM forum_content INNER JOIN user on forum_content.USER_ID=user.USER_ID WHERE FORUM_TITLE=?";
+  db.query(sqlSelect, [p], (err, result) => {
+    if (err) {
+      // console.log(err);
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
 app.get("/api/getForumTop", (req, res) => {
   const sqlSelect =
     "SELECT * FROM forum_content ORDER BY FORUM_ID DESC LIMIT 3";
