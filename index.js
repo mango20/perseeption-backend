@@ -70,11 +70,11 @@ const db = mysql.createPool({
   connectTimeout: 60 * 60 * 1000,
   acquireTimeout: 60 * 60 * 1000,
   timeout: 60 * 60 * 1000,
-  host: "us-cdbr-east-04.cleardb.com",
-  port: 3306,
-  user: "bc62b0ccf843e4",
-  password: "8a4f31cb",
-  database: "heroku_ac00d9532dbe104",
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DATABASE,
 });
 
 // const db = mysql.createPool({
