@@ -15,7 +15,7 @@ const multer = require("multer");
 const path = require("path");
 const mysql = require("mysql");
 const fileupload = require("express-fileupload");
-
+require("dotenv").config();
 // app.use(
 //   fileupload({
 //     useTempFiles: true,
@@ -1841,7 +1841,7 @@ app.post("/login", (req, res) => {
     }
   });
 });
-require("dotenv").config();
+
 // const path = require("path");
 const PORT = process.env.PORT;
 
