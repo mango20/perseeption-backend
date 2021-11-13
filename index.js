@@ -127,11 +127,18 @@ app.use(bodyParser.json());
 // });
 
 cloudinary.config({
-  cloud_name: "dlvt2lnkh",
-  api_key: "944347277714234",
-  api_secret: "eYk9pWR3UZUUIQagyQHkCgkArhY",
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
   secure: true,
 });
+
+// cloudinary.config({
+//   cloud_name: "dlvt2lnkh",
+//   api_key: "944347277714234",
+//   api_secret: "eYk9pWR3UZUUIQagyQHkCgkArhY",
+//   secure: true,
+// });
 
 app.post("/api/uploadImageAnnouncement", async (req, res) => {
   try {
