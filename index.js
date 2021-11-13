@@ -580,13 +580,13 @@ app.post("/sendtoEmail", (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "perseeption2021@gmail.com",
-      pass: "Perseeption2021!",
+      user: process.env.GMAIL_USER, // Your email id
+      pass: process.env.GMAIL_PASS,
     },
   });
 
   const mailOptions = {
-    from: "perseeption2021@gmail.com",
+    from: process.env.GMAIL_USER,
     to: EmailContact,
     subject: Subject,
     text: ContactUsMsg,
@@ -1698,12 +1698,12 @@ function sendEmail(email, token, USER_ID) {
   var mail = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "perseeption2021@gmail.com", // Your email id
-      pass: "Perseeption2021!", // Your password
+      user: process.env.GMAIL_USER, // Your email id
+      pass: process.env.GMAIL_PASS, // Your password
     },
   });
   var mailOptions = {
-    from: "perseeption2021@gmail.com",
+    from: process.env.GMAIL_USER,
     to: email,
     subject: "Reset Password Link - Perseeption.com",
     html:
@@ -1722,6 +1722,40 @@ function sendEmail(email, token, USER_ID) {
     }
   });
 }
+
+// function sendEmail(email, token, USER_ID) {
+//   var email = email;
+//   var USER_ID = USER_ID;
+//   var token = token;
+//   console.log(token);
+//   console.log(USER_ID);
+//   var mail = nodemailer.createTransport({
+//     service: "gmail",
+//     auth: {
+//       user: "perseeption2021@gmail.com", // Your email id
+//       pass: "Perseeption2021!", // Your password
+//     },
+//   });
+//   var mailOptions = {
+//     from: "perseeption2021@gmail.com",
+//     to: email,
+//     subject: "Reset Password Link - Perseeption.com",
+//     html:
+//       '<p>You requested for reset password, kindly use this <a href="https://perseep-frontend.herokuapp.com/resetpassword/' +
+//       USER_ID +
+//       "/" +
+//       token +
+//       '">link</a> to reset your password</p>',
+//   };
+//   mail.sendMail(mailOptions, function (error, info) {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log(info);
+//       console.log(info);
+//     }
+//   });
+// }
 
 app.post("/resetPassword", (req, resu) => {
   const email = req.body.ForgotEmail;
