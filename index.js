@@ -15,7 +15,8 @@ const multer = require("multer");
 const path = require("path");
 const mysql = require("mysql");
 const fileupload = require("express-fileupload");
-require("dotenv").config();
+const dotenv = require("dotenv");
+dotenv.config();
 // app.use(
 //   fileupload({
 //     useTempFiles: true,
