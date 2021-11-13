@@ -1766,7 +1766,7 @@ app.post("/resetpassword/:USER_ID/:TOKEN", (req, res) => {
   var USER_ID = req.params.USER_ID;
   var TOKEN = req.params.TOKEN;
   var forgotPass = req.body.forgotPass;
-  console.log(USER_ID);
+  // console.log(USER_ID);
   console.log(TOKEN);
   console.log(forgotPass);
 
