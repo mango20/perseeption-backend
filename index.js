@@ -1311,6 +1311,20 @@ app.get("/api/getUser", (req, res) => {
   });
 });
 
+app.get("/api/getUser/:USER_ID", (req, res) => {
+  const USER_ID = req.params.USER_ID;
+  const sqlSelect = "SELECT * FROM WHERE USER_ID = ?";
+  db.query(sqlSelect, USER_ID, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(err);
+      res.send(result);
+      // console.log(result);
+    }
+  });
+});
+
 // COUNT PENDOING MEMBER
 app.get("/api/countReqMember", (req, res) => {
   const sqlSelectPending =
