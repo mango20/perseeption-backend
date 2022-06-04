@@ -551,6 +551,21 @@ app.put("/updateMember_Details/:USER_ID", async (req, res) => {
   });
 });
 
+app.put("/logoutUser/:USER_ID", async (req, res) => {
+  const USER_ID = req.params.USER_ID;
+  const STATUS = req.body.STATUS;
+
+  console.log(STATUS);
+  const sql = "UPDATE user SET ? WHERE USER_ID = ?";
+  db.query(sql, [STATUS, USER_ID], (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(results);
+    }
+  });
+});
+
 app.post("/api/insertAnnouncement", (req, res) => {
   const ANNOUNCEMENT_TITLE = req.body.ANNOUNCEMENT_TITLE;
   const ANNOUNCEMENT_CONTENT = req.body.ANNOUNCEMENT_CONTENT;
@@ -1086,6 +1101,7 @@ app.post("/register", async (req, res) => {
     const CHILD_MIDDLE_NAME = req.body.CHILD_MIDDLE_NAME;
 
     const FATHER_SURNAME = req.body.FATHER_SURNAME;
+
     const FATHER_GIVEN_NAME = req.body.FATHER_GIVEN_NAME;
     const FATHER_MIDDLE_NAME = req.body.FATHER_MIDDLE_NAME;
     const FATHER_BIRTHDAY = req.body.FATHER_BIRTHDAY;
