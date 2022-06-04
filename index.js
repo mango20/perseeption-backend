@@ -553,7 +553,7 @@ app.put("/updateMember_Details/:USER_ID", async (req, res) => {
 
 app.put("/logoutUser/:USER_ID", async (req, res) => {
   const USER_ID = req.params.USER_ID;
-  const STATUS = req.body.STATUS;
+  const STATUS = req.body.stat;
 
   console.log(STATUS);
   const sql = "UPDATE user SET ? WHERE USER_ID = ?";
