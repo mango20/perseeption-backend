@@ -560,8 +560,10 @@ app.put("/logoutUser/:USER_ID", async (req, res) => {
   db.query(sql, [STATUS, USER_ID], (err, results) => {
     if (err) {
       res.send(err);
+      console.log(err);
     } else {
       res.send(results);
+      console.log(results);
     }
   });
 });
